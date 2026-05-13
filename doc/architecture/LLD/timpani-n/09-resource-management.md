@@ -5,6 +5,22 @@
 
 # LLD: Resource Management
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-n-lld-09
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+
+---
+
 **Component Type:** Cleanup & State Management
 **Responsibility:** Resource cleanup, global state, graceful shutdown
 **Status:** ⏸️ Not Started in Rust

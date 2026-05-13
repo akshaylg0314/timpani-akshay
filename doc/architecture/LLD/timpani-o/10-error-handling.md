@@ -5,6 +5,22 @@
 
 # LLD: Error Handling and Fault Tolerance Component
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-o-lld-10
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+
+---
+
 **Component Type:** Error Management System
 **Responsibility:** Define error types, propagation strategies, and fault recovery mechanisms
 **Status:** ✅ Migrated (C++ → Rust)

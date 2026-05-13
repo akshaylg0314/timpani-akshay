@@ -5,6 +5,22 @@
 
 # timpani System Architecture
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-arch-system
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial system architecture documentation | Eclipse timpani Team | - |
+
+---
+
 **Document Version:** 1.0
 **Last Updated:** May 12, 2026
 **Status:** Living Document

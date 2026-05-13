@@ -5,6 +5,22 @@
 
 # LLD: Global Scheduler Component
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-o-lld-04
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+
+---
+
 **Component Type:** Core Scheduling Logic
 **Responsibility:** Allocate tasks to nodes and CPUs using real-time scheduling algorithms
 **Status:** ✅ Migrated (C++ → Rust)

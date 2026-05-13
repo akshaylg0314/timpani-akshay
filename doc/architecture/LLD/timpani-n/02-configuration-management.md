@@ -5,6 +5,22 @@
 
 # LLD: Configuration Management
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-n-lld-02
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+
+---
+
 **Component Type:** Configuration System
 **Responsibility:** CLI parsing, configuration validation, defaults management
 **Status:** ✅ Complete in Rust

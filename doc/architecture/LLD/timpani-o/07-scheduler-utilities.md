@@ -5,6 +5,22 @@
 
 # LLD: Scheduler Utilities Component
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-o-lld-07
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+
+---
+
 **Component Type:** Helper Functions & Utilities
 **Responsibility:** Provide reusable scheduling utilities, feasibility checks, and mathematical functions
 **Status:** ✅ Migrated (C++ → Rust)

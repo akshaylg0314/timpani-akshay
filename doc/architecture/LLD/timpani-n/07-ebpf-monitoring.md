@@ -5,6 +5,22 @@
 
 # LLD: eBPF Monitoring System
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-n-lld-07
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+
+---
+
 **Component Type:** Kernel Monitoring
 **Responsibility:** Deadline miss detection, scheduler statistics via eBPF
 **Status:** ⏸️ Not Started in Rust

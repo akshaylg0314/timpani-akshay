@@ -5,6 +5,22 @@
 
 # timpani gRPC Integration Architecture
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-arch-grpc
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial gRPC architecture documentation | Eclipse timpani Team | - |
+
+---
+
 **Document Version:** 1.0
 **Last Updated:** May 2026
 **Author:** timpani_rust Team

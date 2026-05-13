@@ -14,6 +14,7 @@
 4. [Labeling Rules by Stage](#4-labeling-rules-by-stage)
 5. [Step-by-Step Workflow Guide](#5-step-by-step-workflow-guide)
 6. [Automation Setup Guide](#6-automation-setup-guide)
+7. [Documentation Metadata Standards](#7-documentation-metadata-standards)
 
 ---
 
@@ -315,3 +316,151 @@ Create Requirement Issue (adminstrator)
        ↓
   Close Issue and Update Results (adminstrator)
 ```
+
+---
+
+## 7. Documentation Metadata Standards
+
+### Overview
+
+All documentation files in the Eclipse timpani project must include standardized metadata headers to ensure traceability, version control, and proper attribution. This applies to all files in the `doc/` directory.
+
+### Required Metadata Header Template
+
+Every documentation file must start with the following structure (after the SPDX license header):
+
+```markdown
+<!--
+* SPDX-FileCopyrightText: Copyright 2026 LG Electronics Inc.
+* SPDX-License-Identifier: MIT
+-->
+
+# [Document Title]
+
+**Document Information:**
+- **Issuing Author:** [Author Name/Team]
+- **Configuration ID:** [Configuration ID following naming convention]
+- **Document Status:** [Draft | Review | Approved | Published]
+- **Last Updated:** [YYYY-MM-DD]
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | YYYY-MM-DD | Initial document creation | [Author] | [Approver] |
+
+---
+
+[Rest of document content...]
+```
+
+### Configuration ID Naming Convention
+
+#### LLD Documents
+Format: `timpani-[component]-lld-[number]`
+
+**Examples:**
+- `timpani-o-lld-01` - timpani-o SchedInfo Service LLD
+- `timpani-o-lld-02` - timpani-o Fault Service Client LLD
+- `timpani-n-lld-01` - timpani-n Initialization & Main LLD
+- `timpani-n-lld-02` - timpani-n Configuration Management LLD
+- `timpani-o-lld-index` - timpani-o LLD README
+- `timpani-n-lld-index` - timpani-n LLD README
+
+#### Architecture Documents
+Format: `timpani-arch-[type]`
+
+**Examples:**
+- `timpani-arch-system` - System Architecture
+- `timpani-arch-grpc` - gRPC Integration Architecture
+
+#### Other Documentation
+Format: `timpani-[category]-[type]`
+
+**Examples:**
+- `timpani-api-reference` - API Documentation
+- `timpani-doc-structure` - Project Structure Documentation
+- `timpani-doc-index` - Main Documentation Index (README)
+
+### Document Status Values
+
+| Status | Description | When to Use |
+|--------|-------------|-------------|
+| `Draft` | Initial creation, work in progress | Document is being written |
+| `Review` | Under review | Document is complete and awaiting review |
+| `Approved` | Reviewed and approved | Document has been reviewed and approved |
+| `Published` | Final, published version | Document is complete and publicly available |
+
+### Revision History Guidelines
+
+1. **Version Numbering:** Use semantic versioning with alpha designation for initial versions
+   - Alpha version (0.0a): Initial document creation, pre-release
+   - Major version (1.0 → 2.0): Significant restructuring or content changes
+   - Minor version (1.0 → 1.1): Content updates, additions, corrections
+   - Patch version (1.0.0 → 1.0.1): Typo fixes, formatting (optional third digit)
+
+2. **Date Format:** Always use `YYYY-MM-DD` format (ISO 8601)
+
+3. **Comment Field:** Brief description of changes made in this version
+
+4. **Author Field:** Person or team who made the changes
+
+5. **Approver Field:** Person who approved the changes (use `-` if not yet approved)
+
+### Example Revision History
+
+```markdown
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 1.1 | 2026-05-20 | Added error handling section | Eclipse timpani Team | John Doe |
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+```
+
+### Files Requiring Metadata
+
+The following types of files must include metadata headers:
+
+1. **LLD Documents** (`doc/architecture/LLD/`)
+   - All component LLD files (timpani-o/*.md, timpani-n/*.md)
+   - README files in each directory
+
+2. **Architecture Documents** (`doc/architecture/`)
+   - System architecture documents
+   - Integration architecture documents
+
+3. **API Documentation** (`doc/docs/api.md`)
+
+4. **Project Documentation** (`doc/docs/`)
+   - Structure documentation
+   - Development guides
+   - Release documentation
+
+5. **Main Documentation Index** (`doc/README.md`)
+
+### Metadata Maintenance
+
+1. **Update "Last Updated" date** whenever document content changes
+2. **Add revision history entry** for significant changes
+3. **Update document status** as document progresses through lifecycle
+4. **Keep Configuration ID unchanged** after initial creation
+5. **Preserve SPDX headers** - never remove or modify license information
+
+### Verification Checklist
+
+Before committing documentation changes, verify:
+
+- [ ] SPDX license header is present and correct
+- [ ] Document Information section is complete
+- [ ] Configuration ID follows naming convention
+- [ ] Document Status is accurate
+- [ ] Last Updated date is current (YYYY-MM-DD format)
+- [ ] Revision History table is present
+- [ ] Revision History has at least one entry (version 1.0)
+- [ ] All dates use YYYY-MM-DD format
+- [ ] Revision comments are meaningful and concise
+
+---

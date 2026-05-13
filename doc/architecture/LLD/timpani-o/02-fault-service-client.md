@@ -5,6 +5,22 @@
 
 # LLD: FaultService Client Component
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-o-lld-02
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+
+---
+
 **Component Type:** gRPC Client
 **Responsibility:** Report fault events (deadline misses) to Pullpiri orchestrator
 **Status:** ✅ Migrated (C++ → Rust)

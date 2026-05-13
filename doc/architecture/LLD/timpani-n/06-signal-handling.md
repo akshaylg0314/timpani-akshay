@@ -5,6 +5,22 @@
 
 # LLD: Signal Handling
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-n-lld-06
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+
+---
+
 **Component Type:** Signal Management
 **Responsibility:** SIGALRM handlers, task signal delivery, shutdown signals
 **Status:** ⏸️ Not Started in Rust

@@ -5,6 +5,22 @@
 
 # timpani Rust API Documentation
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-api-reference
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial API documentation | Eclipse timpani Team | - |
+
+---
+
 This document describes the gRPC API and Rust module interfaces for timpani's Rust implementation.
 
 ## Table of Contents

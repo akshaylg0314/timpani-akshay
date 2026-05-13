@@ -5,6 +5,22 @@
 
 # timpani Documentation Guide
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-doc-index
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial documentation guide | Eclipse timpani Team | - |
+
+---
+
 **Last Updated:** May 12, 2026
 **Project:** Eclipse timpani (Rust Migration)
 **Version:** Milestone 1 & 2 (gRPC Integration)

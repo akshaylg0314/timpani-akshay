@@ -5,6 +5,22 @@
 
 # timpani-n Low-Level Design (LLD) Documentation
 
+**Document Information:**
+- **Issuing Author:** Eclipse timpani Team
+- **Configuration ID:** timpani-n-lld-index
+- **Document Status:** Published
+- **Last Updated:** 2026-05-13
+
+---
+
+## Revision History
+
+| Version | Date | Comment | Author | Approver |
+|---------|------|---------|--------|----------|
+| 0.0a | 2026-05-13 | Initial LLD documentation set | Eclipse timpani Team | - |
+
+---
+
 **Project:** Eclipse Timpani - Real-Time Task Orchestration Framework
 **Component:** timpani-n (Node Executor)
 **Migration:** C → Rust (In Progress - Initialization Phase Only)
@@ -250,34 +266,6 @@ Check these to see what's been ported:
 
 ---
 
-## Migration Roadmap
-
-### Step 1: Foundation (Current - M2)
-- ✅ CLI and configuration parsing
-- 🔄 Basic initialization structure
-- ⏸️ Context management
-
-### Step 2: Core Runtime (Planned)
-- ⏸️ Time trigger execution loop
-- ⏸️ Hyperperiod calculation
-- ⏸️ Timer management
-
-### Step 3: Communication (Planned)
-- ⏸️ gRPC client to timpani-o
-- ⏸️ Task schedule retrieval
-- ⏸️ Synchronization protocol
-
-### Step 4: Execution (Planned)
-- ⏸️ Real-time scheduling (CPU affinity, RT priority)
-- ⏸️ Signal handling
-- ⏸️ Task activation
-
-### Step 5: Monitoring (Planned)
-- ⏸️ eBPF integration (aya or libbpf-rs)
-- ⏸️ Deadline miss detection
-- ⏸️ Performance statistics
-
----
 
 ## Important Notes
 
