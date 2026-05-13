@@ -328,18 +328,7 @@ All documents follow this structure:
 
 ---
 
-## Migration Status Summary
 
-| Milestone | Status | Components |
-|-----------|--------|------------|
-| **M1: timpani-o Rust** | ✅ Complete | All 10 components documented |
-| **M2: timpani-n Rust** | 🔄 In Progress | Not covered by these HLDs |
-| **M3: gRPC Integration** | ⏸️ Not Started | Requires M2 completion |
-
-**Completion Date (M1):** Q4 2025
-**Documentation Date:** May 2026
-
----
 
 ## Feedback & Updates
 

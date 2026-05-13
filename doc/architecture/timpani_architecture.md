@@ -211,15 +211,7 @@ graph LR
 
 ---
 
-## Migration Status
 
-| Milestone | Component | Status | Documentation |
-|-----------|-----------|--------|---------------|
-| **M1** | timpani-o | ✅ Complete | [HLD/timpani-o/](HLD/timpani-o/) |
-| **M2** | timpani-n | 🔄 Partial | [HLD/timpani-n/](HLD/timpani-n/) |
-| **M3** | gRPC Integration | 🔄 In Progress | [grpc_architecture.md](grpc_architecture.md) |
-
----
 
 ## References
 

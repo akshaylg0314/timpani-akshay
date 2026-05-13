@@ -252,27 +252,27 @@ Check these to see what's been ported:
 
 ## Migration Roadmap
 
-### Phase 1: Foundation (Current - M2)
+### Step 1: Foundation (Current - M2)
 - ✅ CLI and configuration parsing
 - 🔄 Basic initialization structure
 - ⏸️ Context management
 
-### Phase 2: Core Runtime (Planned)
+### Step 2: Core Runtime (Planned)
 - ⏸️ Time trigger execution loop
 - ⏸️ Hyperperiod calculation
 - ⏸️ Timer management
 
-### Phase 3: Communication (Planned)
+### Step 3: Communication (Planned)
 - ⏸️ gRPC client to timpani-o
 - ⏸️ Task schedule retrieval
 - ⏸️ Synchronization protocol
 
-### Phase 4: Execution (Planned)
+### Step 4: Execution (Planned)
 - ⏸️ Real-time scheduling (CPU affinity, RT priority)
 - ⏸️ Signal handling
 - ⏸️ Task activation
 
-### Phase 5: Monitoring (Planned)
+### Step 5: Monitoring (Planned)
 - ⏸️ eBPF integration (aya or libbpf-rs)
 - ⏸️ Deadline miss detection
 - ⏸️ Performance statistics

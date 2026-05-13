@@ -64,10 +64,6 @@ timpani's legacy C/C++ implementation used **libtrpc** (custom serialization ove
 - Equivalent service methods: `AddSchedInfo`, `GetSchedInfo`, `SyncTimer`, `ReportDMiss`
 - No behavioral changes to scheduling logic or fault reporting
 
-**Future Extensions (Post-Milestone 2):**
-- Bidirectional streaming for runtime workload updates (planned)
-- Health checks and node status telemetry (under design)
-- gPTP time synchronization support (Milestone 3)
 
 **Decision:** gRPC chosen for automotive/cloud hybrid deployments, with performance gains and extensibility for future features (OSS roadmap).
 
