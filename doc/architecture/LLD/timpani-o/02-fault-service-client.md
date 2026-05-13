@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: FaultService Client Component
+# LLD: FaultService Client Component
 
 **Component Type:** gRPC Client
 **Responsibility:** Report fault events (deadline misses) to Pullpiri orchestrator
@@ -11,7 +11,7 @@
 
 ## Component Overview
 
-The FaultService Client component is responsible for forwarding fault notifications (primarily deadline misses) from Timpani-N nodes back to the Pullpiri orchestrator. It maintains a persistent gRPC connection and handles failures gracefully.
+The FaultService Client component is responsible for forwarding fault notifications (primarily deadline misses) from timpani-n nodes back to the Pullpiri orchestrator. It maintains a persistent gRPC connection and handles failures gracefully.
 
 ---
 
@@ -184,7 +184,7 @@ bool Initialize(const std::string& server_address) {
     // Connect immediately - fails if Pullpiri not running
     channel_ = grpc::CreateChannel(server_address, ...);
     if (!channel_->WaitForConnected(...)) {
-        return false; // Timpani-O won't start
+        return false; // timpani-o won't start
     }
     return true;
 }
@@ -195,12 +195,12 @@ bool Initialize(const std::string& server_address) {
 pub fn connect_lazy(addr: String) -> anyhow::Result<Arc<dyn FaultNotifier>> {
     // Connection established on first RPC call
     let channel = Endpoint::from_shared(addr)?.connect_lazy();
-    // Timpani-O can start even if Pullpiri is down
+    // timpani-o can start even if Pullpiri is down
     Ok(Arc::new(FaultClient { stub: ProtoFaultClient::new(channel) }))
 }
 ```
 
-**Rationale:** Lazy connection avoids hard startup ordering dependency. Timpani-O can start before Pullpiri is running. The first fault notification will trigger connection establishment.
+**Rationale:** Lazy connection avoids hard startup ordering dependency. timpani-o can start before Pullpiri is running. The first fault notification will trigger connection establishment.
 
 ---
 

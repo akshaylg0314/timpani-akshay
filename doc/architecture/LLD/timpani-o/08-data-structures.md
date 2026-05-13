@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Data Structures Component
+# LLD: Data Structures Component
 
 **Component Type:** Core Data Models
 **Responsibility:** Define task representations, scheduling results, and type-safe enumerations
@@ -11,7 +11,7 @@
 
 ## Component Overview
 
-Data Structures component defines the core types used throughout Timpani-O for representing tasks, scheduling policies, CPU affinity constraints, and final scheduling assignments.
+Data Structures component defines the core types used throughout timpani-o for representing tasks, scheduling policies, CPU affinity constraints, and final scheduling assignments.
 
 ---
 
@@ -191,7 +191,7 @@ impl Task {
     }
 }
 
-/// Wire-ready task (sent to Timpani-N)
+/// Wire-ready task (sent to timpani-n)
 #[derive(Debug, Clone)]
 pub struct SchedTask {
     pub name: String,              // No length limit
@@ -279,7 +279,7 @@ impl SchedTask {
 
 **Rationale:**
 - **Internal:** Use µs (microseconds) everywhere
-- **Wire Protocol:** Convert to ns (nanoseconds) only when sending to Timpani-N
+- **Wire Protocol:** Convert to ns (nanoseconds) only when sending to timpani-n
 - **No Duplication:** Single field eliminates sync issues
 
 ---

@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: SchedInfoService Component
+# LLD: SchedInfoService Component
 
 **Component Type:** gRPC Service
 **Responsibility:** Receive and process workload schedules from Pullpiri orchestrator

@@ -3,15 +3,15 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: D-Bus Server / Node Service Component
+# LLD: D-Bus Server / Node Service Component
 
 **Component Type:** Communication Server
-**Responsibility:** Serve scheduling information and coordinate synchronization with Timpani-N nodes
+**Responsibility:** Serve scheduling information and coordinate synchronization with timpani-n nodes
 **Status:** ✅ Migrated (C++ D-Bus → Rust gRPC)
 
 ## Component Overview
 
-This component provides the communication interface between Timpani-O (global orchestrator) and Timpani-N nodes (local schedulers). It handles three primary operations: serving schedules, coordinating synchronized starts, and receiving deadline miss reports.
+This component provides the communication interface between timpani-o (global orchestrator) and timpani-n nodes (local schedulers). It handles three primary operations: serving schedules, coordinating synchronized starts, and receiving deadline miss reports.
 
 ---
 
@@ -39,7 +39,7 @@ public:
 ### Responsibilities (C++)
 
 1. **Listen** for incoming connections on TCP port 7777
-2. **Serve** scheduling information to Timpani-N nodes (via `trpc_client_schedinfo`)
+2. **Serve** scheduling information to timpani-n nodes (via `trpc_client_schedinfo`)
 3. **Coordinate** synchronization barrier for all nodes (via `trpc_client_sync`)
 4. **Receive** deadline miss reports (via `trpc_client_dmiss`)
 5. **Serialize** messages using custom binary format (libtrpc)
@@ -54,13 +54,13 @@ public:
 ### Data Flow (C++)
 
 ```
-Timpani-N (libtrpc client)
+timpani-n (libtrpc client)
   ↓ TCP connection to port 7777
 DBusServer::GetSchedInfoCallback()
   → sched_info_service_->GetSchedInfoMap()
   → Serialize schedinfo_t struct
   ↓
-Return binary message to Timpani-N
+Return binary message to timpani-n
 ```
 
 ### Configuration (C++)
@@ -92,7 +92,7 @@ pub struct NodeServiceImpl {
 
 ### Responsibilities (Rust)
 
-1. **GetSchedInfo:** Timpani-N pulls its task list via gRPC
+1. **GetSchedInfo:** timpani-n pulls its task list via gRPC
 2. **SyncTimer:** Blocking barrier - all nodes synchronize start time
 3. **ReportDMiss:** Deadline miss forwarded to Pullpiri
 4. **Barrier Management:** Watch channel coordination for sync barrier
@@ -458,20 +458,20 @@ tokio::select! {
 
 ### Breaking Changes
 
-1. **Protocol Change:** D-Bus → gRPC (Timpani-N must use gRPC client)
+1. **Protocol Change:** D-Bus → gRPC (timpani-n must use gRPC client)
 2. **Port Change:** 7777 → 50054
 3. **Message Format:** Binary struct → Protobuf
 
 ### Backwards Compatibility
 
 **None** - this is a breaking change. Requires:
-- Timpani-N migration to gRPC client (Milestone 2)
+- timpani-n migration to gRPC client (Milestone 2)
 - Both components must be upgraded together
 
 ### Migration Path
 
-1. Implement Rust Timpani-O with gRPC NodeService
-2. Migrate Timpani-N from libtrpc to Tonic gRPC client
+1. Implement Rust timpani-o with gRPC NodeService
+2. Migrate timpani-n from libtrpc to Tonic gRPC client
 3. Deploy both simultaneously
 4. Decommission D-Bus server and libtrpc
 

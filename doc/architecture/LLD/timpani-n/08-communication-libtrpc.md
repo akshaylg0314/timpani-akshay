@@ -3,10 +3,10 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Communication (libtrpc → gRPC)
+# LLD: Communication (libtrpc → gRPC)
 
 **Component Type:** RPC Communication
-**Responsibility:** Communication with Timpani-O, schedule retrieval, synchronization, deadline miss reporting
+**Responsibility:** Communication with timpani-o, schedule retrieval, synchronization, deadline miss reporting
 **Status:** ✅ Complete in Rust (gRPC client implemented)
 
 ---
@@ -23,7 +23,7 @@ tt_error_t init_trpc(struct context *ctx) {
     int ret = trpc_client_create(ctx->config.address, NULL, &ctx->runtime.dbus);
     if (ret != 0) return TT_ERROR_NETWORK;
 
-    // Fetch schedule from Timpani-O
+    // Fetch schedule from timpani-o
     serial_buf_t *sbuf = NULL;
     ret = trpc_client_schedinfo(ctx->runtime.dbus, ctx->config.node_id, &sbuf);
     if (ret != 0) return TT_ERROR_NETWORK;
@@ -78,13 +78,13 @@ tt_error_t report_deadline_miss(struct context *ctx, const char *taskname) {
 
 ```protobuf
 service NodeService {
-  // Pull assigned schedule from Timpani-O
+  // Pull assigned schedule from timpani-o
   rpc GetSchedInfo (NodeSchedRequest) returns (NodeSchedResponse) {}
 
   // Barrier synchronization across all nodes
   rpc SyncTimer (SyncRequest) returns (SyncResponse) {}
 
-  // Report deadline miss to Timpani-O
+  // Report deadline miss to timpani-o
   rpc ReportDMiss (DeadlineMissInfo) returns (NodeResponse) {}
 }
 ```
@@ -279,8 +279,8 @@ pub fn report_dmiss(&self, node_id: String, task_name: String) {
 ```
 
 ### 2. Server-Side Filtering
-**C:** Timpani-O sends all tasks, each node filters by node_id
-**Rust:** Timpani-O filters in `GetSchedInfo`, returns only relevant tasks
+**C:** timpani-o sends all tasks, each node filters by node_id
+**Rust:** timpani-o filters in `GetSchedInfo`, returns only relevant tasks
 
 ### 3. Barrier Synchronization
 **C:** 100ms polling loop waiting for ack

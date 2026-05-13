@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Scheduler Utilities Component
+# LLD: Scheduler Utilities Component
 
 **Component Type:** Helper Functions & Utilities
 **Responsibility:** Provide reusable scheduling utilities, feasibility checks, and mathematical functions

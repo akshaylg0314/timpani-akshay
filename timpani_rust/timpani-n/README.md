@@ -1,14 +1,14 @@
-# Timpani-N Node Executor
+# timpani-n Node Executor
 
 > **⚠️ Development Status**: This is a **work-in-progress** Rust port of the C implementation. Core configuration and CLI are complete, but runtime features are still being developed. See [Current Implementation Status](#current-implementation-status) for details.
 
-Timpani-N is a Rust implementation of the Timpani node executor, providing time-triggered scheduling capabilities for distributed real-time systems. This is a complete port from the original C implementation with enhanced type safety, memory safety, and modern Rust features.
+timpani-n is a Rust implementation of the Timpani node executor, providing time-triggered scheduling capabilities for distributed real-time systems. This is a complete port from the original C implementation with enhanced type safety, memory safety, and modern Rust features.
 
 ## Overview
 
-Timpani-N acts as a **node executor** in the Timpani distributed real-time system architecture:
-- **Timpani-N (Node Executor)**: Executes scheduled tasks on individual nodes
-- **Timpani-O (Node Scheduler)**: Orchestrates and schedules tasks across the distributed system
+timpani-n acts as a **node executor** in the Timpani distributed real-time system architecture:
+- **timpani-n (Node Executor)**: Executes scheduled tasks on individual nodes
+- **timpani-o (Node Scheduler)**: Orchestrates and schedules tasks across the distributed system
 
 ## Features
 
@@ -340,7 +340,7 @@ docker run --rm timpani-n --node-id docker-node --log-level 3 scheduler.local
 ```ini
 # /etc/systemd/system/timpani-n.service
 [Unit]
-Description=Timpani-N Node Executor
+Description=timpani-n Node Executor
 After=network.target
 
 [Service]

@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Communication Protocols Component
+# LLD: Communication Protocols Component
 
 **Component Type:** Protocol Definitions & Wire Format
 **Responsibility:** Define gRPC services, message formats, and protocol buffers for all communication
@@ -12,8 +12,8 @@
 ## Component Overview
 
 Communication Protocols component defines all inter-process communication between:
-1. **Pullpiri ↔ Timpani-O** (gRPC): Workload submission and fault reporting
-2. **Timpani-O ↔ Timpani-N** (C++: D-Bus | Rust: gRPC): Schedule distribution and synchronization
+1. **Pullpiri ↔ timpani-o** (gRPC): Workload submission and fault reporting
+2. **timpani-o ↔ timpani-n** (C++: D-Bus | Rust: gRPC): Schedule distribution and synchronization
 
 ---
 
@@ -23,9 +23,9 @@ Communication Protocols component defines all inter-process communication betwee
 
 | Connection | Protocol | Port | Serialization |
 |------------|----------|------|---------------|
-| Pullpiri → Timpani-O (SchedInfo) | gRPC | 50052 | Protobuf |
-| Timpani-O → Pullpiri (Fault) | gRPC | 50053 | Protobuf |
-| Timpani-N ↔ Timpani-O | **D-Bus over TCP** | **7777** | **Custom binary (libtrpc)** |
+| Pullpiri → timpani-o (SchedInfo) | gRPC | 50052 | Protobuf |
+| timpani-o → Pullpiri (Fault) | gRPC | 50053 | Protobuf |
+| timpani-n ↔ timpani-o | **D-Bus over TCP** | **7777** | **Custom binary (libtrpc)** |
 
 ### D-Bus Protocol (C++ Only)
 
@@ -85,9 +85,9 @@ message TaskInfo {
 
 | Connection | Protocol | Port | Serialization |
 |------------|----------|------|---------------|
-| Pullpiri → Timpani-O (SchedInfo) | gRPC | 50052 | Protobuf |
-| Timpani-O → Pullpiri (Fault) | gRPC | 50053 | Protobuf |
-| Timpani-N ↔ Timpani-O | **gRPC/HTTP2** | **50054** | **Protobuf** |
+| Pullpiri → timpani-o (SchedInfo) | gRPC | 50052 | Protobuf |
+| timpani-o → Pullpiri (Fault) | gRPC | 50053 | Protobuf |
+| timpani-n ↔ timpani-o | **gRPC/HTTP2** | **50054** | **Protobuf** |
 
 ### **BREAKING CHANGE: D-Bus → gRPC**
 
@@ -107,7 +107,7 @@ message TaskInfo {
 
 ## Service Definitions
 
-### 1. SchedInfoService (Pullpiri → Timpani-O)
+### 1. SchedInfoService (Pullpiri → timpani-o)
 
 **Proto Definition:**
 ```protobuf
@@ -155,7 +155,7 @@ impl SchedInfoService for SchedInfoServiceImpl {
 
 ---
 
-### 2. FaultService (Timpani-O → Pullpiri)
+### 2. FaultService (timpani-o → Pullpiri)
 
 **Proto Definition:**
 ```protobuf
@@ -202,7 +202,7 @@ impl FaultNotifier for FaultClient {
 
 ---
 
-### 3. NodeService (Timpani-O ↔ Timpani-N)
+### 3. NodeService (timpani-o ↔ timpani-n)
 
 **Proto Definition:**
 ```protobuf
@@ -324,7 +324,7 @@ impl NodeService for NodeServiceImpl {
 5. **Debugging:** Wireshark has gRPC dissectors (D-Bus was opaque binary)
 
 **Migration Cost:**
-- ❌ **Breaking:** Timpani-N must migrate from libtrpc to gRPC client
+- ❌ **Breaking:** timpani-n must migrate from libtrpc to gRPC client
 - ✅ **Benefit:** Removes ~2000 lines of custom serialization code
 - ✅ **Benefit:** libtrpc dependency eliminated
 
@@ -521,14 +521,14 @@ tonic::transport::Server::builder()
 
 ### Breaking Changes
 
-**Timpani-N Side:**
+**timpani-n Side:**
 ```cpp
 // OLD (C++ libtrpc client)
 #include "peer_dbus.h"
 schedinfo_t* info = trpc_client_schedinfo(node_id);
 
 // NEW (Rust gRPC client)
-// Timpani-N will need Tonic client or C++ gRPC client
+// timpani-n will need Tonic client or C++ gRPC client
 auto channel = grpc::CreateChannel("localhost:50054", ...);
 auto stub = NodeService::NewStub(channel);
 NodeSchedRequest request;
@@ -538,8 +538,8 @@ stub->GetSchedInfo(&context, request, &response);
 ```
 
 **Must Migrate Together:**
-- Rust Timpani-O (NodeService server) deployed with gRPC support
-- Timpani-N updated to use gRPC client (libtrpc removed)
+- Rust timpani-o (NodeService server) deployed with gRPC support
+- timpani-n updated to use gRPC client (libtrpc removed)
 - Cannot mix old/new protocols
 
 ---

@@ -4,9 +4,9 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# Getting Started with TIMPANI
+# Getting Started with timpani
 
-Welcome to the TIMPANI project! This guide will help you get up and running with the main components, sample applications, and documentation structure.
+Welcome to the timpani project! This guide will help you get up and running with the main components, sample applications, and documentation structure.
 
 ---
 
@@ -21,7 +21,7 @@ sudo apt install -y libelf-dev zlib1g-dev clang linux-tools-$(uname -r)
 sudo apt install -y pkg-config libsystemd-dev libyaml-dev
 ```
 
-### For gRPC & Protobuf (TIMPANI-O)
+### For gRPC & Protobuf (timpani-o)
 
 ```bash
 sudo apt install -y libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc
@@ -38,8 +38,8 @@ See the detailed instructions in:
 ## 2. Cloning the Repository
 
 ```bash
-git clone --recurse-submodules https://github.com/MCO-PICCOLO/TIMPANI.git
-cd TIMPANI
+git clone --recurse-submodules https://github.com/eclipse-timpani/timpani.git
+cd timpani
 ```
 
 ---
@@ -47,7 +47,7 @@ cd TIMPANI
 ## 3. Building the Components
 
 
-### Timpani-N
+### timpani-n
 
 ```bash
 cd timpani-n
@@ -56,7 +56,7 @@ cmake ..
 make
 ```
 
-### Timpani-O
+### timpani-o
 
 ```bash
 cd timpani-o
@@ -65,7 +65,7 @@ cmake ..
 make
 ```
 
-#### Cross-compilation for ARM64 (Timpani-O)
+#### Cross-compilation for ARM64 (timpani-o)
 ```bash
 cd build
 cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain-aarch64-gcc.cmake ..
@@ -85,7 +85,7 @@ cmake --build .
 
 ## 4. Running the System
 
-### Example: Running Timpani-N
+### Example: Running timpani-n
 
 1. Start the main system:
 	```bash

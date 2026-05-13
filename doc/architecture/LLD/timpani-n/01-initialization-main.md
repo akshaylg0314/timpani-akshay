@@ -3,17 +3,17 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Initialization & Main Entry Point
+# LLD: Initialization & Main Entry Point
 
-**Component Type:** Application Entry Point  
-**Responsibility:** Program initialization, main execution loop coordination, graceful shutdown  
+**Component Type:** Application Entry Point
+**Responsibility:** Program initialization, main execution loop coordination, graceful shutdown
 **Status:** 🔄 Partially Migrated (C → Rust)
 
 ---
 
 ## Component Overview
 
-The Initialization & Main component serves as the entry point for Timpani-N, coordinating the startup sequence, initialization of all subsystems, runtime execution, and graceful shutdown.
+The Initialization & Main component serves as the entry point for timpani-n, coordinating the startup sequence, initialization of all subsystems, runtime execution, and graceful shutdown.
 
 ---
 
@@ -86,7 +86,7 @@ static tt_error_t initialize(struct context *ctx)
         return TT_ERROR_BPF;
     }
 
-    // 5. Initialize TRPC and get schedule from Timpani-O
+    // 5. Initialize TRPC and get schedule from timpani-o
     if (init_trpc(ctx) != TT_SUCCESS) {
         return TT_ERROR_NETWORK;
     }
@@ -113,7 +113,7 @@ static tt_error_t initialize(struct context *ctx)
 ```c
 static tt_error_t run(struct context *ctx)
 {
-    // 1. Synchronize with Timpani-O server
+    // 1. Synchronize with timpani-o server
     if (sync_timer_with_server(ctx) != TT_SUCCESS) {
         return TT_ERROR_NETWORK;
     }
@@ -144,27 +144,27 @@ graph TD
     A[main: Start] --> B[memset context]
     B --> C[parse_config]
     C --> D[initialize]
-    
+
     D --> E[setup_signal_handlers]
     E --> F[set_affinity CPU]
     F --> G[set_schedattr RT prio]
     G --> H[calibrate_bpf_time_offset]
     H --> I[init_trpc]
     I --> J{Apex.OS mode?}
-    
+
     J -->|Yes| K[init_apex_list]
     J -->|No| L[bpf_on]
     L --> M[init_task_list]
-    
+
     K --> N[apex_monitor_init]
     M --> N
-    
+
     N --> O[run]
     O --> P[sync_timer_with_server]
     P --> Q[start_timers]
     Q --> R[start_hyperperiod_timer]
     R --> S[epoll_loop]
-    
+
     S --> T[cleanup_context]
     T --> U[exit]
 ```
@@ -208,7 +208,7 @@ async fn main() -> anyhow::Result<()> {
 
 ```rust
 pub async fn run_app(config: Config) -> TimpaniResult<()> {
-    info!("Starting Timpani-N node executor");
+    info!("Starting timpani-n node executor");
     info!("Configuration: {:?}", config);
 
     // Initialize context
@@ -226,12 +226,12 @@ pub async fn run_app(config: Config) -> TimpaniResult<()> {
 
 /// Initialize the context (⏸️ TBD - placeholders only)
 pub fn initialize(ctx: &mut Context) -> TimpaniResult<()> {
-    info!("Initializing Timpani-N context...");
+    info!("Initializing timpani-n context...");
     // TODO: Signal handlers
     // TODO: CPU affinity
     // TODO: RT priority
     // TODO: BPF initialization
-    // TODO: Connect to Timpani-O
+    // TODO: Connect to timpani-o
     // TODO: Fetch schedule
     warn!("Initialization phase not fully implemented yet");
     Ok(())
@@ -316,7 +316,7 @@ calibrate_bpf_time_offset();
 ### 5. TRPC Connection (C: ✅ | Rust: ⏸️)
 ```c
 // C implementation
-init_trpc(ctx);  // Connect to Timpani-O via D-Bus
+init_trpc(ctx);  // Connect to timpani-o via D-Bus
 ```
 - **Purpose:** Establish connection to orchestrator
 - **Rust Status:** ⏸️ Planned (will use gRPC, not D-Bus)
@@ -393,7 +393,7 @@ Ok(())
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** May 12, 2026  
-**Status:** 🔄 Partial (CLI + Config ✅, Runtime ⏸️)  
+**Document Version:** 1.0
+**Last Updated:** May 12, 2026
+**Status:** 🔄 Partial (CLI + Config ✅, Runtime ⏸️)
 **Verified Against:** `timpani-n/src/main.c`, `timpani_rust/timpani-n/src/main.rs`

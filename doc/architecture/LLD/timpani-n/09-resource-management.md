@@ -3,10 +3,10 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Resource Management
+# LLD: Resource Management
 
-**Component Type:** Cleanup & State Management  
-**Responsibility:** Resource cleanup, global state, graceful shutdown  
+**Component Type:** Cleanup & State Management
+**Responsibility:** Resource cleanup, global state, graceful shutdown
 **Status:** ⏸️ Not Started in Rust
 
 ---
@@ -21,22 +21,22 @@
 void cleanup_context(struct context *ctx) {
     // Stop BPF monitoring
     bpf_off();
-    
+
     // Close timer file descriptors
     if (ctx->runtime.hyperperiod_timer_fd >= 0) {
         close(ctx->runtime.hyperperiod_timer_fd);
     }
-    
+
     // Close D-Bus connection
     if (ctx->runtime.dbus) {
         sd_bus_unref(ctx->runtime.dbus);
     }
-    
+
     // Free task list
     if (ctx->runtime.tt_list) {
         free(ctx->runtime.tt_list);
     }
-    
+
     // Free schedule info
     destroy_task_info_list(ctx->sinfo.tasks);
 }
@@ -63,5 +63,5 @@ void set_global_context(struct context *ctx) {
 
 ---
 
-**Document Version:** 1.0  
+**Document Version:** 1.0
 **Status:** C ✅, Rust ⏸️

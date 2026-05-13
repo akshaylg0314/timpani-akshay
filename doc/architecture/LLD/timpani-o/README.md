@@ -3,10 +3,10 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# Timpani-O High-Level Design (HLD) Documentation
+# timpani-o Low-Level Design (LLD) Documentation
 
 **Project:** Eclipse Timpani - Real-Time Task Orchestration Framework
-**Component:** Timpani-O (Global Orchestrator)
+**Component:** timpani-o (Global Orchestrator)
 **Migration:** C++ → Rust
 **Status:** ✅ Milestone 1 Complete (Rust Implementation)
 **Document Set Version:** 1.0
@@ -16,7 +16,7 @@
 
 ## Overview
 
-This directory contains 10 High-Level Design (HLD) documents that compare the **legacy C++ implementation** (As-Is) with the **completed Rust implementation** (Will-Be) of Timpani-O components.
+This directory contains 10 Low-Level Design (LLD) documents that compare the **legacy C++ implementation** (As-Is) with the **completed Rust implementation** (Will-Be) of timpani-o components.
 
 Each document provides:
 - **Component Overview:** Purpose and responsibility
@@ -36,7 +36,7 @@ Each document provides:
 |---|-----------|--------|-------------|
 | [01](01-schedinfo-service.md) | **SchedInfoService** | ✅ Complete | gRPC server receiving workload schedules from Pullpiri |
 | [02](02-fault-service-client.md) | **FaultService Client** | ✅ Complete | gRPC client reporting faults (deadline misses) to Pullpiri |
-| [03](03-dbus-server-node-service.md) | **D-Bus Server / NodeService** | ✅ Complete | Communication with Timpani-N nodes (D-Bus → gRPC migration) |
+| [03](03-dbus-server-node-service.md) | **D-Bus Server / NodeService** | ✅ Complete | Communication with timpani-n nodes (D-Bus → gRPC migration) |
 
 ### Scheduling Logic
 
@@ -71,7 +71,7 @@ Each document provides:
 **Change Summary:**
 - **Legacy (C++):** D-Bus peer-to-peer over TCP (port 7777) with custom binary serialization (`libtrpc`)
 - **Migrated (Rust):** gRPC/HTTP2 (port 50054) with Protocol Buffers
-- **Impact:** Breaking change - requires Timpani-N migration to gRPC client
+- **Impact:** Breaking change - requires timpani-n migration to gRPC client
 
 **Benefits:**
 - ✅ Industry-standard protocol (better tooling: grpcurl, Wireshark)
@@ -209,7 +209,7 @@ pub fn check_liu_layland(tasks_on_node: &[&Task]) -> Option<f64> {
 
 ## Verification Status
 
-All 10 HLD documents have been **verified against actual source code**:
+All 10 LLD documents have been **verified against actual source code**:
 
 | Source | Files Verified |
 |--------|----------------|
@@ -234,8 +234,8 @@ All 10 HLD documents have been **verified against actual source code**:
 3. Review [10 - Error Handling](10-error-handling.md) (cross-cutting pattern)
 
 **Focus on Communication:**
-1. [01 - SchedInfoService](01-schedinfo-service.md) (Pullpiri → Timpani-O)
-2. [03 - NodeService](03-dbus-server-node-service.md) (Timpani-O ↔ Timpani-N)
+1. [01 - SchedInfoService](01-schedinfo-service.md) (Pullpiri → timpani-o)
+2. [03 - NodeService](03-dbus-server-node-service.md) (timpani-o ↔ timpani-n)
 3. [09 - Communication Protocols](09-communication-protocols.md) (gRPC overview)
 
 **Focus on Algorithms:**
@@ -261,7 +261,7 @@ All 10 HLD documents have been **verified against actual source code**:
 
 ## Reference Architecture Documents
 
-These HLDs are based on the following authenticated source documents:
+These LLDs are based on the following authenticated source documents:
 
 ### Legacy C++ Documentation
 
@@ -290,9 +290,9 @@ These HLDs are based on the following authenticated source documents:
 |------|------------|
 | **As-Is** | Legacy C++ implementation (before migration) |
 | **Will-Be** | Completed Rust implementation (after migration) |
-| **Timpani-O** | Global orchestrator component (this codebase) |
-| **Timpani-N** | Node-local scheduler (separate component) |
-| **Pullpiri** | Higher-level orchestrator that sends workloads to Timpani-O |
+| **timpani-o** | Global orchestrator component (this codebase) |
+| **timpani-n** | Node-local scheduler (separate component) |
+| **Pullpiri** | Higher-level orchestrator that sends workloads to timpani-o |
 | **Hyperperiod** | LCM of all task periods (smallest repeating window) |
 | **Liu & Layland** | Theoretical schedulability bound for Rate Monotonic scheduling |
 | **WCET** | Worst-Case Execution Time (`runtime_us` field) |
@@ -328,18 +328,7 @@ All documents follow this structure:
 
 ---
 
-## Migration Status Summary
 
-| Milestone | Status | Components |
-|-----------|--------|------------|
-| **M1: Timpani-O Rust** | ✅ Complete | All 10 components documented |
-| **M2: Timpani-N Rust** | 🔄 In Progress | Not covered by these HLDs |
-| **M3: gRPC Integration** | ⏸️ Not Started | Requires M2 completion |
-
-**Completion Date (M1):** Q4 2025
-**Documentation Date:** May 2026
-
----
 
 ## Feedback & Updates
 

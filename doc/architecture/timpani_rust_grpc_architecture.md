@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# TIMPANI gRPC Integration Architecture
+# timpani gRPC Integration Architecture
 
 **Document Version:** 1.0
 **Last Updated:** May 2026
@@ -27,7 +27,7 @@
 
 ## Overview
 
-TIMPANI's Rust migration replaces the legacy D-Bus communication layer with **gRPC/Protobuf**, introducing:
+timpani's Rust migration replaces the legacy D-Bus communication layer with **gRPC/Protobuf**, introducing:
 
 - **Type-safe** service contracts via Protobuf schemas
 - **Async/non-blocking** RPC calls with Tokio runtime
@@ -37,11 +37,11 @@ TIMPANI's Rust migration replaces the legacy D-Bus communication layer with **gR
 
 ### Motivation for gRPC
 
-The Rust migration replaces D-Bus + libtrpc with gRPC/Protobuf while maintaining functional equivalence with Timpani 25. Key improvements focus on **performance**, **type safety**, and **future extensibility**.
+The Rust migration replaces D-Bus + libtrpc with gRPC/Protobuf while maintaining functional equivalence with timpani 25. Key improvements focus on **performance**, **type safety**, and **future extensibility**.
 
 #### D-Bus (libtrpc) Limitations
 
-TIMPANI's legacy C/C++ implementation used **libtrpc** (custom serialization over D-Bus):
+timpani's legacy C/C++ implementation used **libtrpc** (custom serialization over D-Bus):
 - Manual serialization prone to type mismatches
 - D-Bus broker adds IPC overhead (~500μs latency)
 - No compile-time schema validation
@@ -64,10 +64,6 @@ TIMPANI's legacy C/C++ implementation used **libtrpc** (custom serialization ove
 - Equivalent service methods: `AddSchedInfo`, `GetSchedInfo`, `SyncTimer`, `ReportDMiss`
 - No behavioral changes to scheduling logic or fault reporting
 
-**Future Extensions (Post-Milestone 2):**
-- Bidirectional streaming for runtime workload updates (planned)
-- Health checks and node status telemetry (under design)
-- gPTP time synchronization support (Milestone 3)
 
 **Decision:** gRPC chosen for automotive/cloud hybrid deployments, with performance gains and extensibility for future features (OSS roadmap).
 
@@ -84,13 +80,13 @@ graph TB
     end
 
     subgraph GlobalScheduler["Global Scheduler"]
-        TimpaniO["Timpani-O<br/>(Global Scheduler)"]
+        TimpaniO["timpani-o<br/>(Global Scheduler)"]
     end
 
     subgraph Nodes["Execution Nodes"]
-        Node1["Node 1<br/>Timpani-N"]
-        Node2["Node 2<br/>Timpani-N"]
-        NodeN["Node N<br/>Timpani-N"]
+        Node1["Node 1<br/>timpani-n"]
+        Node2["Node 2<br/>timpani-n"]
+        NodeN["Node N<br/>timpani-n"]
     end
 
     Pullpiri <-->|"D-Bus<br/>com.lge.timpani"| TimpaniO
@@ -122,13 +118,13 @@ graph TB
     end
 
     subgraph GlobalScheduler["Global Scheduler"]
-        TimpaniO["Timpani-O<br/>(Global Scheduler)<br/>Rust"]
+        TimpaniO["timpani-o<br/>(Global Scheduler)<br/>Rust"]
     end
 
     subgraph Nodes["Execution Nodes"]
-        Node1["Node 1<br/>Timpani-N<br/>(gRPC Client)"]
-        Node2["Node 2<br/>Timpani-N<br/>(gRPC Client)"]
-        NodeN["Node N<br/>Timpani-N<br/>(gRPC Client)"]
+        Node1["Node 1<br/>timpani-n<br/>(gRPC Client)"]
+        Node2["Node 2<br/>timpani-n<br/>(gRPC Client)"]
+        NodeN["Node N<br/>timpani-n<br/>(gRPC Client)"]
     end
 
     Pullpiri <-->|"gRPC<br/>SchedInfoService<br/>FaultService"| TimpaniO
@@ -162,7 +158,7 @@ graph TB
         FaultServer["Fault Service<br/>(gRPC Server)<br/>:50052"]
     end
 
-    subgraph TimpaniO["Timpani-O (Global Scheduler)"]
+    subgraph TimpaniO["timpani-o (Global Scheduler)"]
         SchedInfoSvc["SchedInfo Service<br/>(gRPC Server)<br/>:50051"]
         GlobalSched["Global Scheduler<br/>• node_priority<br/>• task_priority<br/>• best_fit"]
         NodeSvc["Node Service<br/>(gRPC Server)<br/>:50051<br/>• GetSchedInfo<br/>• SyncTimer<br/>• ReportDMiss"]
@@ -171,7 +167,7 @@ graph TB
         GlobalSched --> NodeSvc
     end
 
-    subgraph Node1["Timpani-N (Node 1)"]
+    subgraph Node1["timpani-n (Node 1)"]
         NodeClient1["Node Client<br/>(gRPC Client)"]
         SchedLoop1["Scheduler Loop"]
         BPF1["eBPF Monitor"]
@@ -180,7 +176,7 @@ graph TB
         SchedLoop1 --> BPF1
     end
 
-    subgraph Node2["Timpani-N (Node 2)"]
+    subgraph Node2["timpani-n (Node 2)"]
         NodeClient2["Node Client"]
         SchedLoop2["Scheduler Loop"]
         BPF2["eBPF Monitor"]
@@ -189,7 +185,7 @@ graph TB
         SchedLoop2 --> BPF2
     end
 
-    subgraph NodeN["Timpani-N (Node N)"]
+    subgraph NodeN["timpani-n (Node N)"]
         NodeClientN["Node Client"]
         SchedLoopN["Scheduler Loop"]
         BPFN["eBPF Monitor"]
@@ -218,7 +214,7 @@ graph TB
 graph TD
     subgraph AppLayer["Application Layer"]
         Pullpiri["Pullpiri Orchestrator"]
-        WorkloadApps["Workload Apps<br/>(scheduled by Timpani-N)"]
+        WorkloadApps["Workload Apps<br/>(scheduled by timpani-n)"]
     end
 
     subgraph gRPCLayer["gRPC Service Layer"]
@@ -230,8 +226,8 @@ graph TD
     end
 
     subgraph BusinessLayer["Business Logic Layer"]
-        TimpaniO["Timpani-O<br/>• GlobalScheduler<br/>• HyperperiodCalc<br/>• NodeConfigMgr<br/>• FaultClient"]
-        TimpaniN["Timpani-N<br/>• Task Executor<br/>• Linux Scheduler API<br/>• Signal Handling<br/>• eBPF Integration"]
+        TimpaniO["timpani-o<br/>• GlobalScheduler<br/>• HyperperiodCalc<br/>• NodeConfigMgr<br/>• FaultClient"]
+        TimpaniN["timpani-n<br/>• Task Executor<br/>• Linux Scheduler API<br/>• Signal Handling<br/>• eBPF Integration"]
     end
 
     subgraph OSLayer["Operating System Layer"]
@@ -257,12 +253,12 @@ graph TD
 
 ### 1. Workload Submission & Scheduling
 
-**Scenario:** Pullpiri submits a new workload to Timpani-O
+**Scenario:** Pullpiri submits a new workload to timpani-o
 
 ```mermaid
 sequenceDiagram
     participant Pullpiri
-    participant TimpaniO as Timpani-O
+    participant TimpaniO as timpani-o
     participant WorkloadDB as WorkloadDB<br/>(In-mem)
 
     Pullpiri->>TimpaniO: AddSchedInfo(tasks)
@@ -283,7 +279,7 @@ sequenceDiagram
 
 **Key Steps:**
 1. Pullpiri calls `AddSchedInfo` RPC with task list
-2. Timpani-O validates Protobuf message
+2. timpani-o validates Protobuf message
 3. Converts `TaskInfo` → internal `Task` structs
 4. Runs global scheduler (selects algorithm)
 5. Calculates hyperperiod (LCM of periods)
@@ -295,12 +291,12 @@ sequenceDiagram
 
 ### 2. Node Startup & Schedule Retrieval
 
-**Scenario:** Timpani-N starts up and fetches its schedule
+**Scenario:** timpani-n starts up and fetches its schedule
 
 ```mermaid
 sequenceDiagram
-    participant TimpaniN as Timpani-N<br/>(node1)
-    participant TimpaniO as Timpani-O
+    participant TimpaniN as timpani-n<br/>(node1)
+    participant TimpaniO as timpani-o
     participant WorkloadDB
 
     TimpaniN->>TimpaniO: GetSchedInfo(node_id="node1")
@@ -318,7 +314,7 @@ sequenceDiagram
     Note over TimpaniN: Store Schedule Locally
 ```
 
-**Optimization:** Timpani-O filters tasks by `node_id` before sending (reduces bandwidth).
+**Optimization:** timpani-o filters tasks by `node_id` before sending (reduces bandwidth).
 
 ---
 
@@ -328,10 +324,10 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Node1 as Timpani-N<br/>(node1)
-    participant Node2 as Timpani-N<br/>(node2)
-    participant Node3 as Timpani-N<br/>(node3)
-    participant TimpaniO as Timpani-O
+    participant Node1 as timpani-n<br/>(node1)
+    participant Node2 as timpani-n<br/>(node2)
+    participant Node3 as timpani-n<br/>(node3)
+    participant TimpaniO as timpani-o
 
     Node1->>TimpaniO: SyncTimer(node1)
     activate TimpaniO
@@ -374,14 +370,14 @@ sequenceDiagram
 
 ### 4. Deadline Miss Reporting
 
-**Scenario:** Timpani-N detects deadline miss, reports to Pullpiri via Timpani-O
+**Scenario:** timpani-n detects deadline miss, reports to Pullpiri via timpani-o
 
 ```mermaid
 sequenceDiagram
     participant Task as Task<br/>(RT loop)
-    participant TimpaniN as Timpani-N<br/>(gRPC Client)
+    participant TimpaniN as timpani-n<br/>(gRPC Client)
     participant Worker as Background<br/>Worker Thread
-    participant TimpaniO as Timpani-O<br/>(gRPC Server)
+    participant TimpaniO as timpani-o<br/>(gRPC Server)
     participant Pullpiri
 
     Task->>TimpaniN: Deadline Miss Detected!
@@ -410,7 +406,7 @@ sequenceDiagram
 **Non-Blocking Design:**
 1. RT loop detects miss → queues task name to MPSC channel (~10 ns)
 2. Background worker thread dequeues and calls gRPC
-3. Timpani-O forwards to Pullpiri via `FaultService`
+3. timpani-o forwards to Pullpiri via `FaultService`
 4. RT loop never blocks on network I/O
 
 **Queue Backpressure:**
@@ -426,8 +422,8 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant Pullpiri
-    participant TimpaniO as Timpani-O
-    participant TimpaniN as Timpani-N<br/>(node1)
+    participant TimpaniO as timpani-o
+    participant TimpaniN as timpani-n<br/>(node1)
     participant Tasks as Workload<br/>Tasks
 
     Pullpiri->>TimpaniO: 1. AddSchedInfo(tasks)
@@ -463,23 +459,23 @@ sequenceDiagram
 
 | Service | Method | Endpoint | Caller | Handler |
 |---------|--------|----------|--------|---------|
-| **SchedInfoService** | AddSchedInfo | `timpani-o:50051` | Pullpiri | Timpani-O |
-| **FaultService** | NotifyFault | `pullpiri:50052` | Timpani-O | Pullpiri |
-| **NodeService** | GetSchedInfo | `timpani-o:50051` | Timpani-N | Timpani-O |
-| **NodeService** | SyncTimer | `timpani-o:50051` | Timpani-N | Timpani-O |
-| **NodeService** | ReportDMiss | `timpani-o:50051` | Timpani-N | Timpani-O |
+| **SchedInfoService** | AddSchedInfo | `timpani-o:50051` | Pullpiri | timpani-o |
+| **FaultService** | NotifyFault | `pullpiri:50052` | timpani-o | Pullpiri |
+| **NodeService** | GetSchedInfo | `timpani-o:50051` | timpani-n | timpani-o |
+| **NodeService** | SyncTimer | `timpani-o:50051` | timpani-n | timpani-o |
+| **NodeService** | ReportDMiss | `timpani-o:50051` | timpani-n | timpani-o |
 
 ### Message Flow Summary
 
 ```
 Pullpiri:
-  → SchedInfoService.AddSchedInfo → Timpani-O
-  ← FaultService.NotifyFault ← Timpani-O
+  → SchedInfoService.AddSchedInfo → timpani-o
+  ← FaultService.NotifyFault ← timpani-o
 
-Timpani-N:
-  → NodeService.GetSchedInfo → Timpani-O
-  → NodeService.SyncTimer → Timpani-O (blocks until barrier)
-  → NodeService.ReportDMiss → Timpani-O (non-blocking)
+timpani-n:
+  → NodeService.GetSchedInfo → timpani-o
+  → NodeService.SyncTimer → timpani-o (blocks until barrier)
+  → NodeService.ReportDMiss → timpani-o (non-blocking)
 ```
 
 ---
@@ -570,7 +566,7 @@ rx.changed().await?;  // Block until barrier fires
 
 ### Bandwidth Optimization
 
-**D-Bus (libtrpc):** Sends all nodes' tasks to every Timpani-N (broadcast)
+**D-Bus (libtrpc):** Sends all nodes' tasks to every timpani-n (broadcast)
 
 **Example:**
 - 3 nodes, 30 tasks total
@@ -581,7 +577,7 @@ rx.changed().await?;  // Block until barrier fires
 
 **Example:**
 - 3 nodes, 30 tasks total
-- Each node receives ~10 tasks (filtered by Timpani-O)
+- Each node receives ~10 tasks (filtered by timpani-o)
 - Bandwidth per node: ~1.7 KB
 
 **Savings:** ~66% bandwidth reduction.

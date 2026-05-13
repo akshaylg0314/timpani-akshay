@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Node Configuration Manager Component
+# LLD: Node Configuration Manager Component
 
 **Component Type:** Configuration Loader
 **Responsibility:** Load and manage node hardware specifications from YAML configuration files

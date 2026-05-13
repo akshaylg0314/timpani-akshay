@@ -6,7 +6,7 @@
 
 # Project Structure
 
-This document describes the current structure of the TIMPANI repository. All files and folders listed here are considered stable and will remain untouched in the future, except for the `timpani_rust` folder, which will be the sole focus of ongoing development.
+This document describes the current structure of the timpani repository. All files and folders listed here are considered stable and will remain untouched in the future, except for the `timpani_rust` folder, which will be the sole focus of ongoing development.
 
 ---
 
@@ -17,7 +17,7 @@ This document describes the current structure of the TIMPANI repository. All fil
 ## Current Repository Layout
 
 ```bash
-TIMPANI/
+timpani/
 ├── LICENSE
 ├── README.md
 ├── doc/
@@ -25,9 +25,9 @@ TIMPANI/
 │   ├── architecture/
 │   │   ├── timpani_architecture.md  # System architecture
 │   │   ├── grpc_architecture.md     # gRPC design
-│   │   └── HLD/                     # High-Level Design documents
-│   │       ├── timpani-o/           # Timpani-O component HLDs (10 docs)
-│   │       └── timpani-n/           # Timpani-N component HLDs (10 docs)
+│   │   └── LLD/                     # Low-Level Design documents
+│   │       ├── timpani-o/           # timpani-o component LLDs (10 docs)
+│   │       └── timpani-n/           # timpani-n component LLDs (10 docs)
 │   ├── contribution/
 │   │   ├── coding-rule.md
 │   │   └── guidelines-en.md
@@ -155,11 +155,11 @@ timpani_rust/
 
 The `doc/` directory contains all project documentation:
 
-- **architecture/**: System architecture and HLD component documents
+- **architecture/**: System architecture and LLD component documents
   - `timpani_architecture.md`: Overall system design
   - `grpc_architecture.md`: Communication layer design
-  - `HLD/timpani-o/`: 10 component HLD documents (AS-IS vs WILL-BE)
-  - `HLD/timpani-n/`: 10 component HLD documents (AS-IS vs WILL-BE)
+  - `LLD/timpani-o/`: 10 component LLD documents (AS-IS vs WILL-BE)
+  - `LLD/timpani-n/`: 10 component LLD documents (AS-IS vs WILL-BE)
 
 - **docs/**: Implementation and developer guides
   - `api.md`: gRPC services and Rust APIs
@@ -178,9 +178,9 @@ The `doc/` directory contains all project documentation:
 
 | Component | Legacy | Rust | Status | Documentation |
 |-----------|--------|------|--------|---------------|
-| **Timpani-O** | C++ | Rust | ✅ Complete | [HLD/timpani-o/](../architecture/HLD/timpani-o/) |
-| **Timpani-N** | C | Rust | 🔄 Partial | [HLD/timpani-n/](../architecture/HLD/timpani-n/) |
-| **Communication** | D-Bus | gRPC | ✅ Timpani-O, ⏸️ Timpani-N | [grpc_architecture.md](../architecture/grpc_architecture.md) |
+| **timpani-o** | C++ | Rust | ✅ Complete | [LLD/timpani-o/](../architecture/LLD/timpani-o/) |
+| **timpani-n** | C | Rust | 🔄 Partial | [LLD/timpani-n/](../architecture/LLD/timpani-n/) |
+| **Communication** | D-Bus | gRPC | ✅ timpani-o, ⏸️ timpani-n | [grpc_architecture.md](../architecture/grpc_architecture.md) |
 
 ---
 
@@ -188,6 +188,6 @@ The `doc/` directory contains all project documentation:
 
 - **Legacy code** (timpani-n/, timpani-o/, libtrpc/) remains for reference and backward compatibility
 - **Active development** occurs exclusively in `timpani_rust/`
-- **Documentation** follows architecture → HLD → implementation flow
+- **Documentation** follows architecture → LLD → implementation flow
 - **Build system** uses Cargo workspace for Rust components, CMake for legacy C/C++
 - **Testing** includes both unit tests (Rust) and integration tests (test-tools/)

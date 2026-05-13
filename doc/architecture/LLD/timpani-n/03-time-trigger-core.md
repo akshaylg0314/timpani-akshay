@@ -3,10 +3,10 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Time Trigger Core
+# LLD: Time Trigger Core
 
-**Component Type:** Core Runtime Engine  
-**Responsibility:** Event loop, hyperperiod management, timer coordination  
+**Component Type:** Core Runtime Engine
+**Responsibility:** Event loop, hyperperiod management, timer coordination
 **Status:** ⏸️ Not Started in Rust (C implementation documented)
 
 ---
@@ -18,14 +18,14 @@
 ### Hyperperiod Calculation
 
 ```c
-tt_error_t init_hyperperiod(struct context *ctx, 
+tt_error_t init_hyperperiod(struct context *ctx,
                             const char *workload_id,
                             uint64_t hyperperiod_us,
                             struct hyperperiod_manager *hp_mgr) {
     hp_mgr->hyperperiod_us = hyperperiod_us;
     hp_mgr->hp_count = 0;
     strncpy(hp_mgr->workload_id, workload_id, sizeof(hp_mgr->workload_id) - 1);
-    
+
     clock_gettime(CLOCK_MONOTONIC, &hp_mgr->hp_timer_start);
     return TT_SUCCESS;
 }
@@ -36,10 +36,10 @@ tt_error_t init_hyperperiod(struct context *ctx,
 ```c
 tt_error_t epoll_loop(struct context *ctx) {
     int epfd = epoll_create1(0);
-    
+
     while (!ctx->shutdown_requested) {
         int nfds = epoll_wait(epfd, events, MAX_EVENTS, -1);
-        
+
         for (int i = 0; i < nfds; i++) {
             if (events[i].data.fd == ctx->runtime.hyperperiod_timer_fd) {
                 handle_hyperperiod_tick(ctx);
@@ -48,7 +48,7 @@ tt_error_t epoll_loop(struct context *ctx) {
             }
         }
     }
-    
+
     return TT_SUCCESS;
 }
 ```
@@ -61,7 +61,7 @@ tt_error_t start_hyperperiod_timer(struct context *ctx) {
     its.it_interval.tv_sec = 0;
     its.it_interval.tv_nsec = ctx->hp_manager.hyperperiod_us * 1000;
     its.it_value = its.it_interval;
-    
+
     return timerfd_settime(ctx->runtime.hyperperiod_timer_fd, 0, &its, NULL) == 0
         ? TT_SUCCESS : TT_ERROR_TIMER;
 }
@@ -80,6 +80,6 @@ tt_error_t start_hyperperiod_timer(struct context *ctx) {
 
 ---
 
-**Document Version:** 1.0  
-**Status:** C ✅, Rust ⏸️  
+**Document Version:** 1.0
+**Status:** C ✅, Rust ⏸️
 **Verified Against:** `timpani-n/src/core.c`, `timpani-n/src/hyperperiod.c`

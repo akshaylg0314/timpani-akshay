@@ -3,15 +3,15 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# TIMPANI Rust API Documentation
+# timpani Rust API Documentation
 
-This document describes the gRPC API and Rust module interfaces for TIMPANI's Rust implementation.
+This document describes the gRPC API and Rust module interfaces for timpani's Rust implementation.
 
 ## Table of Contents
 1. [Overview](#overview)
 2. [gRPC Services](#grpc-services)
-3. [Timpani-O Public API](#timpani-o-public-api)
-4. [Timpani-N Public API](#timpani-n-public-api)
+3. [timpani-o Public API](#timpani-o-public-api)
+4. [timpani-n Public API](#timpani-n-public-api)
 5. [Common Types](#common-types)
 6. [Error Handling](#error-handling)
 
@@ -19,12 +19,12 @@ This document describes the gRPC API and Rust module interfaces for TIMPANI's Ru
 
 ## Overview
 
-TIMPANI Rust replaces the D-Bus communication layer from the C/C++ implementation with gRPC/Protobuf for inter-component communication.
+timpani Rust replaces the D-Bus communication layer from the C/C++ implementation with gRPC/Protobuf for inter-component communication.
 
 **Architecture:**
 ```
 ┌─────────────┐                   ┌─────────────┐
-│   Pullpiri  │◄──gRPC/SchedInfo─►│ Timpani-O   │
+│   Pullpiri  │◄──gRPC/SchedInfo─►│ timpani-o   │
 │ Orchestrator│                    │  (Global)   │
 └─────────────┘                    └─────┬───────┘
                                          │ gRPC/NodeService
@@ -40,12 +40,12 @@ TIMPANI Rust replaces the D-Bus communication layer from the C/C++ implementatio
 
 ## gRPC Services
 
-### 1. SchedInfoService (Pullpiri ↔ Timpani-O)
+### 1. SchedInfoService (Pullpiri ↔ timpani-o)
 
 Defined in: `timpani_rust/timpani-o/proto/schedinfo.proto`
 
 #### SchedInfoService
-Allows orchestrators to submit workloads to Timpani-O.
+Allows orchestrators to submit workloads to timpani-o.
 
 **Methods:**
 ```protobuf
@@ -84,7 +84,7 @@ message Response {
 ```
 
 #### FaultService
-Allows Timpani-O to report faults back to the orchestrator.
+Allows timpani-o to report faults back to the orchestrator.
 
 **Methods:**
 ```protobuf
@@ -111,7 +111,7 @@ enum FaultType {
 
 ---
 
-### 2. NodeService (Timpani-O ↔ Timpani-N)
+### 2. NodeService (timpani-o ↔ timpani-n)
 
 Defined in: `timpani_rust/timpani-n/proto/node_service.proto`
 
@@ -130,7 +130,7 @@ service NodeService {
 ```
 
 #### GetSchedInfo
-Timpani-N calls this at startup to retrieve its task schedule.
+timpani-n calls this at startup to retrieve its task schedule.
 
 **Request: NodeSchedRequest**
 ```protobuf
@@ -186,7 +186,7 @@ message SyncResponse {
 - **Workload change:** Returns `ABORTED` if workload replaced while waiting
 
 #### ReportDMiss
-Timpani-N reports deadline misses via this non-blocking call.
+timpani-n reports deadline misses via this non-blocking call.
 
 **Request: DeadlineMissInfo**
 ```protobuf
@@ -205,7 +205,7 @@ message NodeResponse {
 
 ---
 
-## Timpani-O Public API
+## timpani-o Public API
 
 ### GlobalScheduler
 
@@ -292,19 +292,19 @@ println!("Node has {} CPUs", node_info.cpus);
 
 ---
 
-## Timpani-N Public API
+## timpani-n Public API
 
 ### NodeClient (gRPC Client)
 
 **Module:** `timpani_rust/timpani-n/src/grpc/`
 
-**Purpose:** gRPC client for communicating with Timpani-O.
+**Purpose:** gRPC client for communicating with timpani-o.
 
 #### Methods
 
 ```rust
 impl NodeClient {
-    // Connect to Timpani-O (with retry)
+    // Connect to timpani-o (with retry)
     pub async fn connect(uri: &str, node_id: &str) -> TimpaniResult<Self>;
 
     // Fetch schedule at startup
@@ -351,7 +351,7 @@ impl NodeClient {
   - Still type-safe via internal `SchedPolicy` enum and priority validation (0-99)
 
 - **D-N-007:** Single client instance for process lifetime
-  - Timpani-N is pure client (never hosts gRPC server)
+  - timpani-n is pure client (never hosts gRPC server)
   - Avoids connection overhead and resource leaks
 
 - **D-N-008:** Auto-retry with 1s interval on connection failure
@@ -422,7 +422,7 @@ cargo build --features plot
 
 ### Task Representation
 
-**Timpani-O:**
+**timpani-o:**
 ```rust
 pub struct Task {
     pub name: String,
@@ -438,7 +438,7 @@ pub struct Task {
 }
 ```
 
-**Timpani-N:**
+**timpani-n:**
 ```rust
 pub struct TaskConfig {
     pub name: String,
@@ -476,7 +476,7 @@ pub enum CpuAffinity {
 
 ## Error Handling
 
-### Timpani-O Error Types
+### timpani-o Error Types
 
 ```rust
 // Scheduler errors
@@ -495,7 +495,7 @@ pub enum ConfigError {
 }
 ```
 
-### Timpani-N Error Types
+### timpani-n Error Types
 
 ```rust
 pub enum TimpaniError {
@@ -511,7 +511,7 @@ pub type TimpaniResult<T> = Result<T, TimpaniError>;
 
 ### Error Propagation
 
-Both Timpani-O and Timpani-N use `anyhow::Result` for application-level errors and `thiserror` for library error types:
+Both timpani-o and timpani-n use `anyhow::Result` for application-level errors and `thiserror` for library error types:
 
 ```rust
 use anyhow::{Context, Result};
@@ -562,12 +562,12 @@ cargo test -p timpani-o scheduler::tests::test_node_priority
 ### Running
 
 ```bash
-# Timpani-O
+# timpani-o
 ./target/release/timpani-o \
   --config examples/node_configurations.yaml \
   --listen 0.0.0.0:50051
 
-# Timpani-N
+# timpani-n
 ./target/release/timpani-n \
   --node-id node1 \
   --timpani-o-uri http://192.168.1.100:50051

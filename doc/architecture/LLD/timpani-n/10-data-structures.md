@@ -3,10 +3,10 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Data Structures
+# LLD: Data Structures
 
-**Component Type:** Core Data Models  
-**Responsibility:** Context, task info, runtime state structures  
+**Component Type:** Core Data Models
+**Responsibility:** Context, task info, runtime state structures
 **Status:** 🔄 Partial (structures defined in Rust, not used yet)
 
 ---
@@ -21,7 +21,7 @@
 struct context {
     struct config config;                    // Configuration
     struct runtime runtime;                  // Runtime state
-    struct sched_info sinfo;                 // Schedule from Timpani-O
+    struct sched_info sinfo;                 // Schedule from timpani-o
     struct hyperperiod_manager hp_manager;   // Hyperperiod info
     bool shutdown_requested;                 // Shutdown flag
 };
@@ -109,5 +109,5 @@ pub struct TaskInfo {
 
 ---
 
-**Document Version:** 1.0  
+**Document Version:** 1.0
 **Status:** C ✅, Rust 🔄 (structures only)

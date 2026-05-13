@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Error Handling and Fault Tolerance Component
+# LLD: Error Handling and Fault Tolerance Component
 
 **Component Type:** Error Management System
 **Responsibility:** Define error types, propagation strategies, and fault recovery mechanisms
@@ -11,7 +11,7 @@
 
 ## Component Overview
 
-Error Handling component provides structured error types, propagation mechanisms, and recovery strategies for all failure scenarios in Timpani-O, including scheduling failures, resource exhaustion, RPC errors, and configuration problems.
+Error Handling component provides structured error types, propagation mechanisms, and recovery strategies for all failure scenarios in timpani-o, including scheduling failures, resource exhaustion, RPC errors, and configuration problems.
 
 ---
 

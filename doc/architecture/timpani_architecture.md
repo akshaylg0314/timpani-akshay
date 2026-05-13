@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# TIMPANI System Architecture
+# timpani System Architecture
 
 **Document Version:** 1.0
 **Last Updated:** May 12, 2026
@@ -13,10 +13,10 @@
 
 ## System Overview
 
-TIMPANI is a **distributed real-time task orchestration framework** designed for time-triggered systems. It consists of two primary components:
+timpani is a **distributed real-time task orchestration framework** designed for time-triggered systems. It consists of two primary components:
 
-- **Timpani-O (Orchestrator):** Global scheduler that manages workloads across multiple nodes
-- **Timpani-N (Node):** Local executor that runs time-triggered tasks with real-time guarantees
+- **timpani-o (Orchestrator):** Global scheduler that manages workloads across multiple nodes
+- **timpani-n (Node):** Local executor that runs time-triggered tasks with real-time guarantees
 
 ---
 
@@ -24,7 +24,7 @@ TIMPANI is a **distributed real-time task orchestration framework** designed for
 
 ```mermaid
 graph TB
-    subgraph "Timpani-O (Global Orchestrator)"
+    subgraph "timpani-o (Global Orchestrator)"
         O1[Global Scheduler]
         O2[Hyperperiod Manager]
         O3[Node Configuration Manager]
@@ -33,7 +33,7 @@ graph TB
         O6[gRPC Server]
     end
 
-    subgraph "Timpani-N (Node Executor)"
+    subgraph "timpani-n (Node Executor)"
         N1[Time Trigger Core]
         N2[Task Management]
         N3[Real-Time Scheduler]
@@ -70,7 +70,7 @@ graph TB
 
 ---
 
-## Timpani-O Components
+## timpani-o Components
 
 | Component | Responsibility | Implementation |
 |-----------|---------------|----------------|
@@ -81,11 +81,11 @@ graph TB
 | **Fault Service Client** | Deadline miss reporting | C++ → Rust ✅ |
 | **gRPC Server** | Node communication (port 50054) | D-Bus → gRPC ✅ |
 
-**Detailed Documentation:** [HLD/timpani-o/](HLD/timpani-o/)
+**Detailed Documentation:** [LLD/timpani-o/](LLD/timpani-o/)
 
 ---
 
-## Timpani-N Components
+## timpani-n Components
 
 | Component | Responsibility | Implementation |
 |-----------|---------------|----------------|
@@ -95,9 +95,9 @@ graph TB
 | **eBPF Monitoring** | Deadline miss detection (kernel) | C → Rust ⏸️ |
 | **Signal Handlers** | SIGALRM, task activation signals | C → Rust ⏸️ |
 | **Configuration** | CLI parsing, validation | C → Rust ✅ |
-| **gRPC Client** | Communication with Timpani-O | libtrpc → gRPC 🔄 |
+| **gRPC Client** | Communication with timpani-o | libtrpc → gRPC 🔄 |
 
-**Detailed Documentation:** [HLD/timpani-n/](HLD/timpani-n/)
+**Detailed Documentation:** [LLD/timpani-n/](LLD/timpani-n/)
 
 **Legend:** ✅ Complete | 🔄 In Progress | ⏸️ Not Started
 
@@ -108,8 +108,8 @@ graph TB
 ```mermaid
 sequenceDiagram
     participant App as Sample Apps
-    participant TN as Timpani-N
-    participant TO as Timpani-O
+    participant TN as timpani-n
+    participant TO as timpani-o
     participant FM as Fault Manager
 
     Note over TO: Startup Phase
@@ -165,19 +165,19 @@ sequenceDiagram
 ```mermaid
 graph LR
     subgraph "Node 1"
-        N1[Timpani-N]
+        N1[timpani-n]
         A1[App Tasks]
         N1 -.->|monitors| A1
     end
 
     subgraph "Node 2"
-        N2[Timpani-N]
+        N2[timpani-n]
         A2[App Tasks]
         N2 -.->|monitors| A2
     end
 
     subgraph "Orchestration Node"
-        TO[Timpani-O]
+        TO[timpani-o]
         FM[Fault Manager]
     end
 
@@ -200,8 +200,8 @@ graph LR
 - **Deadline Monitoring:** eBPF tracks rt_sigtimedwait syscalls
 
 ### 2. Distributed Coordination
-- **Centralized Scheduling:** Timpani-O computes global schedule
-- **Decentralized Execution:** Timpani-N executes local schedule
+- **Centralized Scheduling:** timpani-o computes global schedule
+- **Decentralized Execution:** timpani-n executes local schedule
 - **Synchronization:** Coordinated start time across nodes
 
 ### 3. Fault Tolerance
@@ -211,19 +211,11 @@ graph LR
 
 ---
 
-## Migration Status
 
-| Milestone | Component | Status | Documentation |
-|-----------|-----------|--------|---------------|
-| **M1** | Timpani-O | ✅ Complete | [HLD/timpani-o/](HLD/timpani-o/) |
-| **M2** | Timpani-N | 🔄 Partial | [HLD/timpani-n/](HLD/timpani-n/) |
-| **M3** | gRPC Integration | 🔄 In Progress | [grpc_architecture.md](grpc_architecture.md) |
-
----
 
 ## References
 
-- **Component HLD:** [HLD/timpani-o/](HLD/timpani-o/), [HLD/timpani-n/](HLD/timpani-n/)
+- **Component LLD:** [LLD/timpani-o/](LLD/timpani-o/), [LLD/timpani-n/](LLD/timpani-n/)
 - **gRPC Architecture:** [grpc_architecture.md](grpc_architecture.md)
 - **API Documentation:** [../docs/api.md](../docs/api.md)
 - **Getting Started:** [../docs/getting-started.md](../docs/getting-started.md)
@@ -231,5 +223,5 @@ graph LR
 ---
 
 **Document Version:** 1.0
-**Verified Against:** Component HLD documents, source code (timpani_rust/, timpani-n/, timpani-o/)
+**Verified Against:** Component LLD documents, source code (timpani_rust/, timpani-n/, timpani-o/)
 
