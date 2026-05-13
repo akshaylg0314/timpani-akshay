@@ -8,7 +8,7 @@
 **Document Information:**
 - **Issuing Author:** Eclipse timpani Team
 - **Configuration ID:** timpani-o-lld-01
-- **Document Status:** Published
+- **Document Status:** Draft
 - **Last Updated:** 2026-05-13
 
 ---
@@ -17,7 +17,8 @@
 
 | Version | Date | Comment | Author | Approver |
 |---------|------|---------|--------|----------|
-| 0.0a | 2026-05-13 | Initial LLD document creation | Eclipse timpani Team | - |
+| 0.0b | 2026-05-13 | Updated documentation metadata and standards compliance | LGSI-KarumuriHari | - |
+| 0.0a | 2026-02-24 | Initial LLD document creation | Eclipse timpani Team | - |
 
 ---
 
