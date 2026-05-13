@@ -3,10 +3,10 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Task Management
+# LLD: Task Management
 
-**Component Type:** Task Lifecycle Management  
-**Responsibility:** Task list management, activation scheduling, state tracking  
+**Component Type:** Task Lifecycle Management
+**Responsibility:** Task list management, activation scheduling, state tracking
 **Status:** ⏸️ Not Started in Rust
 
 ---
@@ -33,22 +33,22 @@ struct time_trigger {
 ```c
 tt_error_t init_task_list(struct context *ctx) {
     int task_count = ctx->sinfo.task_count;
-    
+
     ctx->runtime.tt_list = calloc(task_count, sizeof(struct time_trigger));
-    
+
     for (int i = 0; i < task_count; i++) {
         struct task_info *task = &ctx->sinfo.tasks[i];
         struct time_trigger *tt = &ctx->runtime.tt_list[i];
-        
+
         tt->task = *task;
         tt->period.tv_sec = task->period_us / 1000000;
         tt->period.tv_nsec = (task->period_us % 1000000) * 1000;
         tt->ctx = ctx;
-        
+
         // Add PID to BPF filter
         bpf_add_pid(task->pid);
     }
-    
+
     return TT_SUCCESS;
 }
 ```
@@ -73,5 +73,5 @@ static void activate_task(struct time_trigger *tt) {
 
 ---
 
-**Document Version:** 1.0  
+**Document Version:** 1.0
 **Status:** C ✅, Rust ⏸️

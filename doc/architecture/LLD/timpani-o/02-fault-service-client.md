@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: FaultService Client Component
+# LLD: FaultService Client Component
 
 **Component Type:** gRPC Client
 **Responsibility:** Report fault events (deadline misses) to Pullpiri orchestrator

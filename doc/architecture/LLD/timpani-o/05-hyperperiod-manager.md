@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Hyperperiod Manager Component
+# LLD: Hyperperiod Manager Component
 
 **Component Type:** Mathematical Utility
 **Responsibility:** Calculate Least Common Multiple (LCM) of task periods for hyperperiod determination

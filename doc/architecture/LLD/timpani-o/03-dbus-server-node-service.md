@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: D-Bus Server / Node Service Component
+# LLD: D-Bus Server / Node Service Component
 
 **Component Type:** Communication Server
 **Responsibility:** Serve scheduling information and coordinate synchronization with timpani-n nodes

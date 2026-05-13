@@ -3,10 +3,10 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Signal Handling
+# LLD: Signal Handling
 
-**Component Type:** Signal Management  
-**Responsibility:** SIGALRM handlers, task signal delivery, shutdown signals  
+**Component Type:** Signal Management
+**Responsibility:** SIGALRM handlers, task signal delivery, shutdown signals
 **Status:** ⏸️ Not Started in Rust
 
 ---
@@ -20,19 +20,19 @@
 ```c
 tt_error_t setup_signal_handlers(struct context *ctx) {
     struct sigaction sa;
-    
+
     // SIGINT/SIGTERM: Graceful shutdown
     sa.sa_handler = signal_handler_shutdown;
     sa.sa_flags = 0;
     sigemptyset(&sa.sa_mask);
     sigaction(SIGINT, &sa, NULL);
     sigaction(SIGTERM, &sa, NULL);
-    
+
     // SIGALRM: Task activation timer
     sa.sa_handler = signal_handler_alarm;
     sa.sa_flags = SA_RESTART;
     sigaction(SIGALRM, &sa, NULL);
-    
+
     return TT_SUCCESS;
 }
 
@@ -52,7 +52,7 @@ tt_error_t send_signal_pidfd(int pidfd, int signal) {
     struct siginfo info = {0};
     info.si_signo = signal;
     info.si_code = SI_QUEUE;
-    
+
     return syscall(__NR_pidfd_send_signal, pidfd, signal, &info, 0) == 0
         ? TT_SUCCESS : TT_ERROR_SIGNAL;
 }
@@ -68,5 +68,5 @@ tt_error_t send_signal_pidfd(int pidfd, int signal) {
 
 ---
 
-**Document Version:** 1.0  
+**Document Version:** 1.0
 **Status:** C ✅, Rust ⏸️

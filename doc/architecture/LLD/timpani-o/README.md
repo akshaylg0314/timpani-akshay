@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# timpani-o High-Level Design (HLD) Documentation
+# timpani-o Low-Level Design (LLD) Documentation
 
 **Project:** Eclipse Timpani - Real-Time Task Orchestration Framework
 **Component:** timpani-o (Global Orchestrator)
@@ -16,7 +16,7 @@
 
 ## Overview
 
-This directory contains 10 High-Level Design (HLD) documents that compare the **legacy C++ implementation** (As-Is) with the **completed Rust implementation** (Will-Be) of timpani-o components.
+This directory contains 10 Low-Level Design (LLD) documents that compare the **legacy C++ implementation** (As-Is) with the **completed Rust implementation** (Will-Be) of timpani-o components.
 
 Each document provides:
 - **Component Overview:** Purpose and responsibility
@@ -209,7 +209,7 @@ pub fn check_liu_layland(tasks_on_node: &[&Task]) -> Option<f64> {
 
 ## Verification Status
 
-All 10 HLD documents have been **verified against actual source code**:
+All 10 LLD documents have been **verified against actual source code**:
 
 | Source | Files Verified |
 |--------|----------------|
@@ -261,7 +261,7 @@ All 10 HLD documents have been **verified against actual source code**:
 
 ## Reference Architecture Documents
 
-These HLDs are based on the following authenticated source documents:
+These LLDs are based on the following authenticated source documents:
 
 ### Legacy C++ Documentation
 

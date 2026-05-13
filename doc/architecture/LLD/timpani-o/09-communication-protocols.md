@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Communication Protocols Component
+# LLD: Communication Protocols Component
 
 **Component Type:** Protocol Definitions & Wire Format
 **Responsibility:** Define gRPC services, message formats, and protocol buffers for all communication

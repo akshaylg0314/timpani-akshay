@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Global Scheduler Component
+# LLD: Global Scheduler Component
 
 **Component Type:** Core Scheduling Logic
 **Responsibility:** Allocate tasks to nodes and CPUs using real-time scheduling algorithms

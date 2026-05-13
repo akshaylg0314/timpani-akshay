@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Communication (libtrpc → gRPC)
+# LLD: Communication (libtrpc → gRPC)
 
 **Component Type:** RPC Communication
 **Responsibility:** Communication with timpani-o, schedule retrieval, synchronization, deadline miss reporting

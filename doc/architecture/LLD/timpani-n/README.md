@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# timpani-n High-Level Design (HLD) Documentation
+# timpani-n Low-Level Design (LLD) Documentation
 
 **Project:** Eclipse Timpani - Real-Time Task Orchestration Framework
 **Component:** timpani-n (Node Executor)
@@ -16,7 +16,7 @@
 
 ## Overview
 
-This directory contains 10 High-Level Design (HLD) documents for timpani-n (node executor) components. **Unlike timpani-o**, these documents are primarily **AS-IS focused** because the Rust implementation is still in early development (only initialization/configuration complete).
+This directory contains 10 Low-Level Design (LLD) documents for timpani-n (node executor) components. **Unlike timpani-o**, these documents are primarily **AS-IS focused** because the Rust implementation is still in early development (only initialization/configuration complete).
 
 ### Document Structure
 - **AS-IS (C Implementation):** Comprehensive documentation from `timpani-n/src/` (legacy C code)
@@ -86,9 +86,9 @@ This directory contains 10 High-Level Design (HLD) documents for timpani-n (node
 
 ---
 
-## Key Differences from timpani-o HLD
+## Key Differences from timpani-o LLD
 
-| Aspect | timpani-o HLD | timpani-n HLD |
+| Aspect | timpani-o LLD | timpani-n LLD |
 |--------|---------------|---------------|
 | **Rust Status** | ✅ Complete (M1) | 🔄 Initialization only (M2 in progress) |
 | **Focus** | AS-IS vs WILL-BE comparison | Primarily AS-IS (C documentation) |
@@ -282,7 +282,7 @@ Check these to see what's been ported:
 ## Important Notes
 
 ### Documentation Purpose
-These HLD documents serve as:
+These LLD documents serve as:
 1. **Reference** for the legacy C implementation
 2. **Migration Guide** for Rust developers
 3. **Comparison** showing C vs Rust approaches (when implemented)
@@ -311,7 +311,7 @@ These HLD documents serve as:
 ## Feedback & Updates
 
 These documents will be updated as the Rust migration progresses:
-- **After each component migration:** Update corresponding HLD with WILL-BE section
+- **After each component migration:** Update corresponding LLD with WILL-BE section
 - **After major design decisions:** Add design decision rationale
 - **After testing:** Add test coverage notes
 - **After M2 completion:** Comprehensive review and update

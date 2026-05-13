@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Initialization & Main Entry Point
+# LLD: Initialization & Main Entry Point
 
 **Component Type:** Application Entry Point
 **Responsibility:** Program initialization, main execution loop coordination, graceful shutdown

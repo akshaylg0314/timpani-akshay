@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Error Handling and Fault Tolerance Component
+# LLD: Error Handling and Fault Tolerance Component
 
 **Component Type:** Error Management System
 **Responsibility:** Define error types, propagation strategies, and fault recovery mechanisms

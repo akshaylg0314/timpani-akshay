@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Data Structures Component
+# LLD: Data Structures Component
 
 **Component Type:** Core Data Models
 **Responsibility:** Define task representations, scheduling results, and type-safe enumerations

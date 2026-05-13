@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Data Structures
+# LLD: Data Structures
 
 **Component Type:** Core Data Models
 **Responsibility:** Context, task info, runtime state structures

@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# HLD: Configuration Management
+# LLD: Configuration Management
 
 **Component Type:** Configuration System
 **Responsibility:** CLI parsing, configuration validation, defaults management
