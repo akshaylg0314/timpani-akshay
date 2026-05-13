@@ -13,7 +13,7 @@
 
 ## 📑 Documentation Overview
 
-This documentation provides a comprehensive guide to the timpani project's migration from C/C++ to Rust, including architecture documentation, high-level design (HLD) comparisons, and implementation details. This structure is designed for **developers and contributors** to understand the system architecture and implementation.
+This documentation provides a comprehensive guide to the timpani project's migration from C/C++ to Rust, including architecture documentation, low-level design (LLD) comparisons, and implementation details. This structure is designed for **developers and contributors** to understand the system architecture and implementation.
 
 ---
 
@@ -27,13 +27,13 @@ System architecture, communication protocols, and high-level design documentatio
 - [timpani Architecture](architecture/timpani_architecture.md) - Overall system architecture
 - [gRPC Architecture](architecture/grpc_architecture.md) - Communication layer design
 
-#### High-Level Design (HLD) Documents
-📁 [`architecture/HLD/`](architecture/HLD/)
+#### Low-Level Design (LLD) Documents
+📁 [`architecture/LLD/`](architecture/LLD/)
 
-Component-level HLD documents comparing legacy C/C++ with Rust implementations.
+Component-level LLD documents comparing legacy C/C++ with Rust implementations.
 
 **timpani-o (Global Orchestrator):**
-- [`HLD/timpani-o/`](architecture/HLD/timpani-o/) - 10 component HLD documents
+- [`LLD/timpani-o/`](architecture/LLD/timpani-o/) - 10 component LLD documents
   - 01: SchedInfo Service
   - 02: Fault Service Client
   - 03: D-Bus → gRPC Node Service
@@ -44,10 +44,10 @@ Component-level HLD documents comparing legacy C/C++ with Rust implementations.
   - 08: Data Structures
   - 09: Communication Protocols
   - 10: Error Handling
-  - [README](architecture/HLD/timpani-o/README.md) - Component overview & migration themes
+  - [README](architecture/LLD/timpani-o/README.md) - Component overview & migration themes
 
 **timpani-n (Node Executor):**
-- [`HLD/timpani-n/`](architecture/HLD/timpani-n/) - 10 component HLD documents
+- [`LLD/timpani-n/`](architecture/LLD/timpani-n/) - 10 component LLD documents
   - 01: Initialization & Main
   - 02: Configuration Management ✅
   - 03: Time Trigger Core
@@ -58,7 +58,7 @@ Component-level HLD documents comparing legacy C/C++ with Rust implementations.
   - 08: Communication (libtrpc → gRPC)
   - 09: Resource Management
   - 10: Data Structures
-  - [README](architecture/HLD/timpani-n/README.md) - Component overview & migration status
+  - [README](architecture/LLD/timpani-n/README.md) - Component overview & migration status
 
 **🔍 Focus:** Understand system architecture and component-level AS-IS vs WILL-BE comparisons
 
@@ -91,7 +91,7 @@ Development standards, coding rules, and workflow guidelines.
 
 ---
 
-## 📊 Documentation Flow (Architecture → HLD → Implementation)
+## 📊 Documentation Flow (Architecture → LLD → Implementation)
 
 ```mermaid
 graph TD
@@ -100,9 +100,9 @@ graph TD
         A2[gRPC Architecture<br/>grpc_architecture.md]
     end
 
-    subgraph "2. Component HLD"
-        H1[timpani-o HLD<br/>10 Components]
-        H2[timpani-n HLD<br/>10 Components]
+    subgraph "2. Component LLD"
+        H1[timpani-o LLD<br/>10 Components]
+        H2[timpani-n LLD<br/>10 Components]
         H3[AS-IS vs WILL-BE<br/>Comparisons]
     end
 
@@ -150,12 +150,12 @@ graph TD
 eclipse_timpani/
 ├── doc/                          # 📚 All documentation (YOU ARE HERE)
 │   ├── README.md                 # This file
-│   ├── architecture/             # Architecture & HLD documentation
+│   ├── architecture/             # Architecture & LLD documentation
 │   │   ├── timpani_architecture.md
 │   │   ├── grpc_architecture.md
-│   │   └── HLD/                  # High-Level Design documents
-│   │       ├── timpani-o/        # timpani-o component HLDs
-│   │       └── timpani-n/        # timpani-n component HLDs
+│   │   └── LLD/                  # Low-Level Design documents
+│   │       ├── timpani-o/        # timpani-o component LLDs
+│   │       └── timpani-n/        # timpani-n component LLDs
 │   ├── docs/                     # Implementation guides
 │   │   ├── api.md
 │   │   ├── getting-started.md
@@ -185,10 +185,10 @@ eclipse_timpani/
 - [ ] gRPC architecture addresses all communication requirements
 - [ ] Component boundaries are clearly defined
 
-### Step 2: Component HLD Review
+### Step 2: Component LLD Review
 - [ ] AS-IS architecture accurately reflects legacy implementation (C/C++)
 - [ ] WILL-BE architecture documents Rust implementation status
-- [ ] Component HLDs are verified against actual source code
+- [ ] Component LLDs are verified against actual source code
 - [ ] Migration notes capture key design decisions
 
 ### Step 3: Implementation Verification
@@ -216,10 +216,10 @@ eclipse_timpani/
 ### For Architecture Clarifications
 - Refer to [timpani Architecture](architecture/timpani_architecture.md)
 - Review [gRPC Architecture](architecture/grpc_architecture.md)
-- Check component HLDs in [HLD/timpani-o/](architecture/HLD/timpani-o/) or [HLD/timpani-n/](architecture/HLD/timpani-n/)
+- Check component LLDs in [LLD/timpani-o/](architecture/LLD/timpani-o/) or [LLD/timpani-n/](architecture/LLD/timpani-n/)
 
 ### For Development Queries
-- Review architecture documentation: `architecture/` → `HLD/` → `docs/`
+- Review architecture documentation: `architecture/` → `LLD/` → `docs/`
 - Check test coverage reports: `timpani_rust/target/coverage/`
 - Review CI/CD logs: GitHub Actions workflow results
 

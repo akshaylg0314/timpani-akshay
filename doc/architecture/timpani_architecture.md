@@ -81,7 +81,7 @@ graph TB
 | **Fault Service Client** | Deadline miss reporting | C++ → Rust ✅ |
 | **gRPC Server** | Node communication (port 50054) | D-Bus → gRPC ✅ |
 
-**Detailed Documentation:** [HLD/timpani-o/](HLD/timpani-o/)
+**Detailed Documentation:** [LLD/timpani-o/](LLD/timpani-o/)
 
 ---
 
@@ -97,7 +97,7 @@ graph TB
 | **Configuration** | CLI parsing, validation | C → Rust ✅ |
 | **gRPC Client** | Communication with timpani-o | libtrpc → gRPC 🔄 |
 
-**Detailed Documentation:** [HLD/timpani-n/](HLD/timpani-n/)
+**Detailed Documentation:** [LLD/timpani-n/](LLD/timpani-n/)
 
 **Legend:** ✅ Complete | 🔄 In Progress | ⏸️ Not Started
 
@@ -215,7 +215,7 @@ graph LR
 
 ## References
 
-- **Component HLD:** [HLD/timpani-o/](HLD/timpani-o/), [HLD/timpani-n/](HLD/timpani-n/)
+- **Component LLD:** [LLD/timpani-o/](LLD/timpani-o/), [LLD/timpani-n/](LLD/timpani-n/)
 - **gRPC Architecture:** [grpc_architecture.md](grpc_architecture.md)
 - **API Documentation:** [../docs/api.md](../docs/api.md)
 - **Getting Started:** [../docs/getting-started.md](../docs/getting-started.md)
@@ -223,5 +223,5 @@ graph LR
 ---
 
 **Document Version:** 1.0
-**Verified Against:** Component HLD documents, source code (timpani_rust/, timpani-n/, timpani-o/)
+**Verified Against:** Component LLD documents, source code (timpani_rust/, timpani-n/, timpani-o/)
 
