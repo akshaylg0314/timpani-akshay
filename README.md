@@ -104,8 +104,27 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ```
 timpani/
 ├── README.md                    # This file - main project overview
+├── doc/                         # 📚 Comprehensive documentation
+│   ├── README.md               # Documentation guide
+│   ├── architecture/           # Architecture documentation
+│   │   ├── HLD/               # High-Level Design
+│   │   │   ├── timpani_system_design_document.md
+│   │   │   └── timpani_rust_grpc_architecture.md
+│   │   └── LLD/               # Low-Level Design
+│   │       ├── timpani-o/     # Orchestrator components (10 docs)
+│   │       └── timpani-n/     # Node executor components (10 docs)
+│   ├── features/              # Feature & Requirements
+│   │   ├── timpani_features.md
+│   │   └── requirements/timpani_requirements.md
+│   ├── docs/                  # Implementation guides
+│   │   ├── api.md
+│   │   ├── getting-started.md
+│   │   └── developments.md
+│   └── contribution/          # Contribution guidelines
+│       ├── coding-rule.md
+│       └── guidelines-en.md
 ├── sample-apps/
-│   ├── README.md               # Sample applications documentation
+│   └── README.md               # Sample applications documentation
 ├── timpani-n/
 │   ├── README.md               # C implementation: Node executor
 │   ├── README.CentOS.md       # CentOS setup guide

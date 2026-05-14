@@ -3,13 +3,13 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# timpani System Architecture
+# timpani System Design Document
 
 **Document Information:**
 - **Issuing Author:** Eclipse timpani Team
 - **Configuration ID:** timpani-arch-system
-- **Document Status:** Published
-- **Last Updated:** 2026-05-13
+- **Document Status:** Draft
+- **Last Updated:** 2026-05-14
 
 ---
 
@@ -17,15 +17,13 @@
 
 | Version | Date | Comment | Author | Approver |
 |---------|------|---------|--------|----------|
+| 0.0c | 2026-05-14 | Updated diagram legends with consistent color scheme across all diagrams | LGSI-KarumuriHari | - |
+| 0.0b | 2026-05-13 | Added diagram legends highlighting timpani-o and timpani-n scope | LGSI-KarumuriHari | - |
 | 0.0a | 2026-05-13 | Initial system architecture documentation | Eclipse timpani Team | - |
 
 ---
 
-**Document Version:** 1.0
-**Last Updated:** May 12, 2026
-**Status:** Living Document
 
----
 
 ## System Overview
 
@@ -63,6 +61,13 @@ graph TB
         E2[Fault Manager]
     end
 
+    subgraph Legend[" "]
+        L1["timpani-o (Our Scope)"]
+        L2["timpani-n (Our Scope)"]
+        L3["Communication Layer"]
+        L4["External Systems"]
+    end
+
     O1 --> O2
     O1 --> O3
     O4 --> O1
@@ -78,10 +83,24 @@ graph TB
     N2 --> E1
     N4 --> O6
 
-    style O1 fill:#e3f2fd
-    style N1 fill:#e8f5e9
-    style O6 fill:#fff3e0
-    style N6 fill:#fff3e0
+    style O1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style O2 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style O3 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style O4 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style O5 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style N1 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style N2 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style N3 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style N4 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style N5 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style O6 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style N6 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style E1 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style E2 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
 ```
 
 ---
@@ -197,13 +216,25 @@ graph LR
         FM[Fault Manager]
     end
 
+    subgraph Legend[" "]
+        L1["timpani-o (Our Scope)"]
+        L2["timpani-n (Our Scope)"]
+        L3["External Systems"]
+    end
+
     N1 <-->|gRPC<br/>:50054| TO
     N2 <-->|gRPC<br/>:50054| TO
     TO <-->|gRPC| FM
 
-    style TO fill:#e3f2fd
-    style N1 fill:#e8f5e9
-    style N2 fill:#e8f5e9
+    style TO fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style N1 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style N2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style A1 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style A2 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style FM fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style L3 fill:#f5f5f5,stroke:#757575,stroke-width:2px
 ```
 
 ---

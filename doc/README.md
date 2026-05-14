@@ -8,7 +8,7 @@
 **Document Information:**
 - **Issuing Author:** Eclipse timpani Team
 - **Configuration ID:** timpani-doc-index
-- **Document Status:** Published
+- **Document Status:** Draft
 - **Last Updated:** 2026-05-13
 
 ---
@@ -17,6 +17,7 @@
 
 | Version | Date | Comment | Author | Approver |
 |---------|------|---------|--------|----------|
+| 0.0b | 2026-05-13 | Added HLD section with system design and gRPC architecture | LGSI-KarumuriHari | - |
 | 0.0a | 2026-05-13 | Initial documentation guide | Eclipse timpani Team | - |
 
 ---
@@ -38,10 +39,16 @@ This documentation provides a comprehensive guide to the timpani project's migra
 ### 1️⃣ **Architecture Documentation**
 📁 [`architecture/`](architecture/)
 
-System architecture, communication protocols, and high-level design documentation.
+System architecture, communication protocols, and design documentation.
 
-- [timpani Architecture](architecture/timpani_architecture.md) - Overall system architecture
-- [gRPC Architecture](architecture/grpc_architecture.md) - Communication layer design
+#### High-Level Design (HLD) Documents
+📁 [`architecture/HLD/`](architecture/HLD/)
+
+System-level architecture and technology integration documentation.
+
+**System Architecture:**
+- [timpani System Design Document](architecture/HLD/timpani_system_design_document.md) - Overall system architecture, components, deployment
+- [timpani gRPC Integration Architecture](architecture/HLD/timpani_rust_grpc_architecture.md) - D-Bus → gRPC migration, communication flow, performance
 
 #### Low-Level Design (LLD) Documents
 📁 [`architecture/LLD/`](architecture/LLD/)
@@ -76,11 +83,25 @@ Component-level LLD documents comparing legacy C/C++ with Rust implementations.
   - 10: Data Structures
   - [README](architecture/LLD/timpani-n/README.md) - Component overview & migration status
 
-**🔍 Focus:** Understand system architecture and component-level AS-IS vs WILL-BE comparisons
+**🔍 Focus:**
+- **HLD:** System-level architecture, technology stack, deployment patterns
+- **LLD:** Component-level AS-IS vs WILL-BE comparisons, implementation details
 
 ---
 
-### 2️⃣ **Implementation Documentation**
+### 2️⃣ **Feature Specifications & Requirements**
+📁 [`features/`](features/)
+
+System feature breakdown and requirements documentation.
+
+- [timpani Feature Specification](features/timpani_features.md) - Feature breakdown with mermaid diagrams, 3-level feature tables
+- [timpani Requirements Specification](features/requirements/timpani_requirements.md) - Functional and non-functional requirements
+
+**🔍 Focus:** Understand system capabilities, feature mapping, and requirement traceability
+
+---
+
+### 3️⃣ **Implementation Documentation**
 📁 [`docs/`](docs/)
 
 Detailed developer guides, APIs, and development workflows.
@@ -95,7 +116,7 @@ Detailed developer guides, APIs, and development workflows.
 
 ---
 
-### 3️⃣ **Contribution Guidelines**
+### 4️⃣ **Contribution Guidelines**
 📁 [`contribution/`](contribution/)
 
 Development standards, coding rules, and workflow guidelines.
@@ -111,39 +132,47 @@ Development standards, coding rules, and workflow guidelines.
 
 ```mermaid
 graph TD
-    subgraph "1. Architecture Phase"
-        A1[System Architecture<br/>timpani_architecture.md]
-        A2[gRPC Architecture<br/>grpc_architecture.md]
+    subgraph "1. Features & Requirements"
+        F1[Feature Specification<br/>features/timpani_features.md]
+        F2[Requirements Specification<br/>features/requirements/timpani_requirements.md]
     end
 
-    subgraph "2. Component LLD"
-        H1[timpani-o LLD<br/>10 Components]
-        H2[timpani-n LLD<br/>10 Components]
-        H3[AS-IS vs WILL-BE<br/>Comparisons]
+    subgraph "2. High-Level Architecture"
+        HLD1[System Design Document<br/>HLD/timpani_system_design_document.md]
+        HLD2[gRPC Integration Architecture<br/>HLD/timpani_rust_grpc_architecture.md]
     end
 
-    subgraph "3. Implementation Phase"
+    subgraph "3. Component LLD"
+        LLD1[timpani-o LLD<br/>10 Components]
+        LLD2[timpani-n LLD<br/>10 Components]
+        LLD3[AS-IS vs WILL-BE<br/>Comparisons]
+    end
+
+    subgraph "4. Implementation Phase"
         I1[API Documentation]
         I2[Getting Started]
         I3[Development Guide]
         I4[Project Structure]
     end
 
-    subgraph "4. Quality Assurance"
+    subgraph "5. Quality Assurance"
         Q1[Coding Standards]
         Q2[Review Process]
         Q3[Release Guide]
     end
 
-    A1 --> H1
-    A1 --> H2
-    A2 --> H1
-    A2 --> H2
+    F1 --> F2
+    F2 --> HLD1
+    F2 --> HLD2
+    HLD1 --> LLD1
+    HLD2 --> LLD1
+    HLD1 --> LLD2
+    HLD2 --> LLD2
 
-    H1 --> H3
-    H2 --> H3
+    LLD1 --> LLD3
+    LLD2 --> LLD3
 
-    H3 --> I1
+    LLD3 --> I1
     I1 --> I2
     I2 --> I3
     I3 --> I4
@@ -152,8 +181,9 @@ graph TD
     Q1 --> Q2
     Q2 --> Q3
 
-    style A1 fill:#e3f2fd
-    style H3 fill:#e8f5e8
+    style F1 fill:#fff9c4
+    style HLD1 fill:#e3f2fd
+    style LLD3 fill:#e8f5e8
     style I1 fill:#fff3e0
     style Q3 fill:#f3e5f5
 ```
@@ -166,12 +196,17 @@ graph TD
 eclipse_timpani/
 ├── doc/                          # 📚 All documentation (YOU ARE HERE)
 │   ├── README.md                 # This file
-│   ├── architecture/             # Architecture & LLD documentation
-│   │   ├── timpani_architecture.md
-│   │   ├── grpc_architecture.md
+│   ├── architecture/             # Architecture documentation
+│   │   ├── HLD/                  # High-Level Design documents
+│   │   │   ├── timpani_system_design_document.md
+│   │   │   └── timpani_rust_grpc_architecture.md
 │   │   └── LLD/                  # Low-Level Design documents
-│   │       ├── timpani-o/        # timpani-o component LLDs
-│   │       └── timpani-n/        # timpani-n component LLDs
+│   │       ├── timpani-o/        # timpani-o component LLDs (10 docs)
+│   │       └── timpani-n/        # timpani-n component LLDs (10 docs)
+│   ├── features/                 # Feature & Requirements
+│   │   ├── timpani_features.md
+│   │   └── requirements/
+│   │       └── timpani_requirements.md
 │   ├── docs/                     # Implementation guides
 │   │   ├── api.md
 │   │   ├── getting-started.md
@@ -196,10 +231,12 @@ eclipse_timpani/
 
 ## 🔍 Development Checklist
 
-### Step 1: Architecture Review
-- [ ] System architecture documentation is complete and accurate
-- [ ] gRPC architecture addresses all communication requirements
-- [ ] Component boundaries are clearly defined
+### Step 1: High-Level Architecture Review
+- [ ] HLD: System design documentation is complete and accurate
+- [ ] HLD: gRPC architecture addresses all communication requirements
+- [ ] HLD: Technology stack and deployment patterns documented
+- [ ] Feature specifications with mermaid diagrams reviewed
+- [ ] Requirements (FR/NFR) traceability established
 
 ### Step 2: Component LLD Review
 - [ ] AS-IS architecture accurately reflects legacy implementation (C/C++)
@@ -230,9 +267,9 @@ eclipse_timpani/
 - Consult [GitHub Issues](https://github.com/eclipse-timpani/timpani/issues)
 
 ### For Architecture Clarifications
-- Refer to [timpani Architecture](architecture/timpani_architecture.md)
-- Review [gRPC Architecture](architecture/grpc_architecture.md)
-- Check component LLDs in [LLD/timpani-o/](architecture/LLD/timpani-o/) or [LLD/timpani-n/](architecture/LLD/timpani-n/)
+- **HLD:** Review [System Design Document](architecture/HLD/timpani_system_design_document.md) or [gRPC Architecture](architecture/HLD/timpani_rust_grpc_architecture.md)
+- **Features:** Check [Feature Specification](features/timpani_features.md) or [Requirements](features/requirements/timpani_requirements.md)
+- **LLD:** Check component LLDs in [LLD/timpani-o/](architecture/LLD/timpani-o/) or [LLD/timpani-n/](architecture/LLD/timpani-n/)
 
 ### For Development Queries
 - Review architecture documentation: `architecture/` → `LLD/` → `docs/`

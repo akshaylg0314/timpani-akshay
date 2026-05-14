@@ -9,7 +9,7 @@
 **Document Information:**
 - **Issuing Author:** Eclipse timpani Team
 - **Configuration ID:** timpani-doc-structure
-- **Document Status:** Published
+- **Document Status:** Draft
 - **Last Updated:** 2026-05-13
 
 ---
@@ -18,6 +18,7 @@
 
 | Version | Date | Comment | Author | Approver |
 |---------|------|---------|--------|----------|
+| 0.0b | 2026-05-13 | Added HLD section and features/requirements documentation | LGSI-KarumuriHari | - |
 | 0.0a | 2026-05-13 | Initial structure documentation | Eclipse timpani Team | - |
 
 ---
@@ -39,11 +40,16 @@ timpani/
 ├── doc/
 │   ├── README.md                    # Documentation guide
 │   ├── architecture/
-│   │   ├── timpani_architecture.md  # System architecture
-│   │   ├── grpc_architecture.md     # gRPC design
+│   │   ├── HLD/                     # High-Level Design documents
+│   │   │   ├── timpani_system_design_document.md
+│   │   │   └── timpani_rust_grpc_architecture.md
 │   │   └── LLD/                     # Low-Level Design documents
 │   │       ├── timpani-o/           # timpani-o component LLDs (10 docs)
 │   │       └── timpani-n/           # timpani-n component LLDs (10 docs)
+│   ├── features/
+│   │   ├── timpani_features.md      # Feature specification
+│   │   └── requirements/
+│   │       └── timpani_requirements.md  # FR/NFR requirements
 │   ├── contribution/
 │   │   ├── coding-rule.md
 │   │   └── guidelines-en.md
@@ -171,11 +177,17 @@ timpani_rust/
 
 The `doc/` directory contains all project documentation:
 
-- **architecture/**: System architecture and LLD component documents
-  - `timpani_architecture.md`: Overall system design
-  - `grpc_architecture.md`: Communication layer design
-  - `LLD/timpani-o/`: 10 component LLD documents (AS-IS vs WILL-BE)
-  - `LLD/timpani-n/`: 10 component LLD documents (AS-IS vs WILL-BE)
+- **architecture/**: System architecture documentation
+  - **HLD/**: High-Level Design documents
+    - `timpani_system_design_document.md`: Overall system architecture, components, deployment
+    - `timpani_rust_grpc_architecture.md`: D-Bus → gRPC migration, communication flow, performance
+  - **LLD/**: Low-Level Design component documents
+    - `timpani-o/`: 10 component LLD documents (AS-IS vs WILL-BE)
+    - `timpani-n/`: 10 component LLD documents (AS-IS vs WILL-BE)
+
+- **features/**: Feature specifications and requirements
+  - `timpani_features.md`: Feature breakdown with mermaid diagrams, 3-level feature tables
+  - `requirements/timpani_requirements.md`: Functional and non-functional requirements (FR/NFR)
 
 - **docs/**: Implementation and developer guides
   - `api.md`: gRPC services and Rust APIs
@@ -194,9 +206,9 @@ The `doc/` directory contains all project documentation:
 
 | Component | Legacy | Rust | Status | Documentation |
 |-----------|--------|------|--------|---------------|
-| **timpani-o** | C++ | Rust | ✅ Complete | [LLD/timpani-o/](../architecture/LLD/timpani-o/) |
-| **timpani-n** | C | Rust | 🔄 Partial | [LLD/timpani-n/](../architecture/LLD/timpani-n/) |
-| **Communication** | D-Bus | gRPC | ✅ timpani-o, ⏸️ timpani-n | [grpc_architecture.md](../architecture/grpc_architecture.md) |
+| **timpani-o** | C++ | Rust | ✅ Complete | [HLD](../architecture/HLD/timpani_system_design_document.md), [LLD/timpani-o/](../architecture/LLD/timpani-o/) |
+| **timpani-n** | C | Rust | 🔄 Partial | [HLD](../architecture/HLD/timpani_system_design_document.md), [LLD/timpani-n/](../architecture/LLD/timpani-n/) |
+| **Communication** | D-Bus | gRPC | ✅ timpani-o, ⏸️ timpani-n | [gRPC Architecture](../architecture/HLD/timpani_rust_grpc_architecture.md) |
 
 ---
 

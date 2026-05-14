@@ -8,8 +8,8 @@
 **Document Information:**
 - **Issuing Author:** Eclipse timpani Team
 - **Configuration ID:** timpani-arch-grpc
-- **Document Status:** Published
-- **Last Updated:** 2026-05-13
+- **Document Status:** Draft
+- **Last Updated:** 2026-05-14
 
 ---
 
@@ -17,6 +17,8 @@
 
 | Version | Date | Comment | Author | Approver |
 |---------|------|---------|--------|----------|
+| 0.0c | 2026-05-14 | Updated legend color scheme: gRPC communication links styled with orange (#f57c00) | LGSI-KarumuriHari | - |
+| 0.0b | 2026-05-13 | Added diagram legends highlighting timpani-o and timpani-n scope | LGSI-KarumuriHari | - |
 | 0.0a | 2026-05-13 | Initial gRPC architecture documentation | Eclipse timpani Team | - |
 
 ---
@@ -110,11 +112,11 @@ graph TB
     TimpaniO <-->|"D-Bus libtrpc<br/>(custom serialization)"| Node2
     TimpaniO <-->|"D-Bus libtrpc<br/>(custom serialization)"| NodeN
 
-    style Pullpiri fill:#e1f5ff
-    style TimpaniO fill:#ffe1e1
-    style Node1 fill:#e1ffe1
-    style Node2 fill:#e1ffe1
-    style NodeN fill:#e1ffe1
+    style Pullpiri fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style TimpaniO fill:#ffe1e1,stroke:#d32f2f,stroke-width:3px
+    style Node1 fill:#e1ffe1,stroke:#388e3c,stroke-width:3px
+    style Node2 fill:#e1ffe1,stroke:#388e3c,stroke-width:3px
+    style NodeN fill:#e1ffe1,stroke:#388e3c,stroke-width:3px
 ```
 
 **Issues:**
@@ -143,16 +145,29 @@ graph TB
         NodeN["Node N<br/>timpani-n<br/>(gRPC Client)"]
     end
 
+    subgraph Legend[" "]
+        L1["timpani-o (Our Scope)"]
+        L2["timpani-n (Our Scope)"]
+        L3["gRPC Communication (Our Scope)"]
+        L4["External Systems"]
+    end
+
     Pullpiri <-->|"gRPC<br/>SchedInfoService<br/>FaultService"| TimpaniO
     TimpaniO <-->|"gRPC/HTTP2<br/>NodeService"| Node1
     TimpaniO <-->|"gRPC/HTTP2<br/>NodeService"| Node2
     TimpaniO <-->|"gRPC/HTTP2<br/>NodeService"| NodeN
 
-    style Pullpiri fill:#e1f5ff
-    style TimpaniO fill:#ffd4a3
-    style Node1 fill:#c8e6c9
-    style Node2 fill:#c8e6c9
-    style NodeN fill:#c8e6c9
+    style Pullpiri fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style TimpaniO fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style Node1 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style Node2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style NodeN fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+
+    linkStyle 0,1,2,3 stroke:#f57c00,stroke-width:3px,color:#f57c00
 ```
 
 **Improvements:**
@@ -210,6 +225,13 @@ graph TB
         SchedLoopN --> BPFN
     end
 
+    subgraph Legend[" "]
+        L1["timpani-o (Our Scope)"]
+        L2["timpani-n (Our Scope)"]
+        L3["gRPC Communication (Our Scope)"]
+        L4["External Systems"]
+    end
+
     SchedInfoClient -->|"gRPC :50051<br/>AddSchedInfo"| SchedInfoSvc
     FaultServer <-->|"gRPC :50052<br/>NotifyFault"| TimpaniO
 
@@ -217,11 +239,31 @@ graph TB
     NodeClient2 <-->|"gRPC :50051<br/>NodeService"| NodeSvc
     NodeClientN <-->|"gRPC :50051<br/>NodeService"| NodeSvc
 
-    style PullpiriSystem fill:#e1f5ff
-    style TimpaniO fill:#ffd4a3
-    style Node1 fill:#c8e6c9
-    style Node2 fill:#c8e6c9
-    style NodeN fill:#c8e6c9
+    style PullpiriSystem fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style SchedInfoClient fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style FaultServer fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style TimpaniO fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style SchedInfoSvc fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style GlobalSched fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style NodeSvc fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style Node1 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style Node2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style NodeN fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style NodeClient1 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style SchedLoop1 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style BPF1 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style NodeClient2 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style SchedLoop2 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style BPF2 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style NodeClientN fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style SchedLoopN fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style BPFN fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+
+    linkStyle 8,9,10,11,12 stroke:#f57c00,stroke-width:3px,color:#f57c00
 ```
 
 ### Layer Diagram
@@ -250,6 +292,13 @@ graph TD
         Kernel["Linux Kernel<br/>• sched_setscheduler<br/>• sched_setaffinity<br/>• eBPF subsystem<br/>• POSIX timers"]
     end
 
+    subgraph Legend[" "]
+        L1["timpani-o (Our Scope)"]
+        L2["timpani-n (Our Scope)"]
+        L3["gRPC Communication (Our Scope)"]
+        L4["External Systems"]
+    end
+
     Pullpiri --> Services
     HTTP2 --> TimpaniO
     HTTP2 --> TimpaniN
@@ -257,10 +306,24 @@ graph TD
     TimpaniN --> Kernel
     WorkloadApps -.->|scheduled by| TimpaniN
 
-    style AppLayer fill:#e3f2fd
-    style gRPCLayer fill:#fff3e0
-    style BusinessLayer fill:#f1f8e9
-    style OSLayer fill:#fce4ec
+    style AppLayer fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style Pullpiri fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style WorkloadApps fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style gRPCLayer fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style Services fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style Tonic fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style HTTP2 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style BusinessLayer fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style TimpaniO fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style TimpaniN fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style OSLayer fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style Kernel fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+
+    linkStyle 0,1,2,3,4 stroke:#f57c00,stroke-width:3px,color:#f57c00
 ```
 
 ---
