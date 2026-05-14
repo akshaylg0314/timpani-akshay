@@ -11,9 +11,10 @@ jobs:
   detect-changes:
     runs-on: ubuntu-latest
     outputs:
-      rust_changed: ${{ steps.filter.outputs.rust }}  # Set to true if any Rust-relevant files changed
-      doc_changed: ${{ steps.filter.outputs.docs }}   # True if docs (Markdown) changed
-      yaml_changed: ${{ steps.filter.outputs.yaml }}  # True if GitHub workflow YAMLs changed
+      rust_changed: ${{ steps.filter.outputs.rust }}        # Set to true if any Rust-relevant files changed
+      doc_changed: ${{ steps.filter.outputs.docs }}         # True if docs (Markdown) changed
+      yaml_changed: ${{ steps.filter.outputs.yaml }}        # True if GitHub workflow YAMLs changed
+      license_changed: ${{ steps.filter.outputs.license }}  # True if dependency or license files changed
     steps:
       # Step 1: Checkout repo contents
       - uses: actions/checkout@v4
@@ -35,6 +36,12 @@ jobs:
               - '**/*.md'         # Markdown docs (README, etc.)
             yaml:
               - '.github/workflows/*.yml'  # GitHub workflow YAMLs
+            license:
+              - '**/Cargo.toml'   # Dependency manifest changes
+              - '**/Cargo.lock'   # Lockfile changes (new/updated deps)
+              - '**/about.toml'   # cargo-about config changes
+              - '**/about.hbs'    # License report template changes
+              - 'scripts/license_check.sh'  # License check script changes
 
   #  Job 2: Trigger full Rust CI workflow if Rust files or configs changed
   run-rust-ci:
@@ -54,7 +61,13 @@ jobs:
     if: needs.detect-changes.outputs.yaml_changed == 'true'
     uses: ./.github/workflows/run-validate.yml
 
-  #  Job 5: Always run this last to print a clean summary in Actions UI
+  #  Job 5: Run license report if dependency or license config files changed
+  run-license-check:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.license_changed == 'true'
+    uses: ./.github/workflows/run-license-check.yml
+
+  #  Job 6: Always run this last to print a clean summary in Actions UI
   ci-summary:
     name: CI Complete Summary
     runs-on: ubuntu-latest
@@ -63,5 +76,6 @@ jobs:
       - run-rust-ci
       - run-doc-lint
       - run-yaml-validation
+      - run-license-check
     steps:
       - run: echo " All CI jobs (if triggered) have completed."

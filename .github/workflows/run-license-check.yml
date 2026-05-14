@@ -1,48 +1,42 @@
 # SPDX-FileCopyrightText: Copyright 2026 LG Electronics Inc.
 # SPDX-License-Identifier: Apache-2.0
 
-name: License Check
+name: License Report Generator
 
-# Reusable workflow — called from other workflows or triggered manually
+# This workflow is designed to be reusable from other workflows
 on:
   workflow_call:
-  workflow_dispatch:
 
 jobs:
-  license-report:
+  license_report:
+    name: Generate License Reports
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repository with submodules
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # Checkout the repository with all submodules
+      - uses: actions/checkout@v4
         with:
-          submodules: "recursive"
+          submodules: recursive
 
-      # Install Rust toolchain (stable)
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+      # Set up the Rust toolchain (stable version)
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
 
-      # Make all scripts executable
-      - name: Make scripts executable
-        run: chmod +x scripts/*.sh
+      # Enable caching of Rust dependencies to speed up builds
+      - uses: Swatinem/rust-cache@v2
 
-      # Install project dependencies (cargo-about, etc.)
-      - name: Install project dependencies
-        run: ./scripts/installdeps.sh
+      # Install `cargo-about` tool used for license reporting
+      - name: Install cargo-about
+        run: cargo install cargo-about --features cli
 
-      # Create output directory for license artifacts
-      - name: Create output folders
-        run: mkdir -p dist/licenses
-
-      # Run cargo-about license report generation
-      - name: Run license check
+      # Run your custom shell script to generate HTML license reports
+      - name: Run license check script
         run: ./scripts/license_check.sh
 
-      # Upload generated license HTML reports as artifacts
-      - name: Upload license report
-        if: always()
+      # Upload all generated license report files to GitHub Actions as artifacts
+      - name: Upload license reports
         uses: actions/upload-artifact@v4
         with:
           name: license-report
-          path: dist/licenses/
+          path: dist/licenses/*
