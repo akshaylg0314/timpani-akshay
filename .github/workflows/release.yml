@@ -229,11 +229,11 @@ jobs:
           tag: ${{ github.ref }}
 
   # Final Step: Build and push multi-arch container images to GHCR
-  build-and-push-container:
-    name: Build and Push Container Image
-    uses: ./.github/workflows/build-container.yml
-    needs:
-      - tag_release_artifacts
-    permissions:
-      packages: write
-      contents: read
+#   build-and-push-container:
+#     name: Build and Push Container Image
+#     uses: ./.github/workflows/build-container.yml
+#     needs:
+#       - tag_release_artifacts
+#     permissions:
+#       packages: write
+#       contents: read
