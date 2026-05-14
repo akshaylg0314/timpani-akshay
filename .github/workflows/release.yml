@@ -233,3 +233,4 @@ jobs:
       - tag_release_artifacts
     permissions:
       packages: write
+      contents: read
