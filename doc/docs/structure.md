@@ -18,6 +18,7 @@
 
 | Version | Date | Comment | Author | Approver |
 |---------|------|---------|--------|----------|
+| 0.0c | 2026-05-14 | Added scope legends to timpani-o and timpani-n block diagrams | LGSI-KarumuriHari | - |
 | 0.0b | 2026-05-13 | Added HLD section and features/requirements documentation | LGSI-KarumuriHari | - |
 | 0.0a | 2026-05-13 | Initial structure documentation | Eclipse timpani Team | - |
 
@@ -27,9 +28,222 @@ This document describes the current structure of the timpani repository. All fil
 
 ---
 
-![alt text](../images/tt_1.png)
-![alt text](../images/tt_2.png)
-![alt text](../images/tt_3.png)
+## timpani System Block Diagrams
+
+### timpani-o System Block Diagram
+
+```mermaid
+graph TB
+    subgraph "External Systems"
+        PICCOLO[Piccolo Orchestrator]
+        ADMIN[System Administrator]
+    end
+
+    subgraph "Distributed Nodes"
+        NODE1[timpani-n Node 1]
+        NODE2[timpani-n Node 2]
+        NODEN[timpani-n Node N]
+    end
+
+    subgraph "timpani-o Global"
+        subgraph "Interface Layer"
+            DBUS_SRV[D-Bus Server<br/>replaced by gRPC]
+            GRPC_SRV[gRPC Server<br/>SchedInfoService]
+            FAULT_CLI[Fault Client<br/>gRPC to Piccolo]
+        end
+
+        subgraph "Core Processing Layer"
+            SCHEDINFO[SchedInfoServiceImpl]
+            HYPER[HyperperiodManager]
+            GLOBAL[GlobalScheduler]
+            NODECONFIG[NodeConfigManager]
+            CLI[CLI/Config]
+        end
+
+        subgraph "Data Management Layer"
+            TASKCONV[Task Converter]
+            SCHEDMAP[SchedInfoMap]
+            SCHEDUTIL[Scheduler Utils]
+        end
+
+        subgraph "Storage Layer"
+            SCHEDSTATE[Schedule State]
+            HYPERINFO[Hyperperiod Info]
+            NODEFILES[Node Config Files]
+        end
+    end
+
+    subgraph Legend[" "]
+        L1["timpani-o (Our Scope)"]
+        L2["timpani-n Nodes (Our Scope)"]
+        L3["gRPC Communication (Our Scope)"]
+        L4["External Systems"]
+    end
+
+    PICCOLO -->|gRPC SchedInfo| GRPC_SRV
+    ADMIN -->|CLI Config| CLI
+
+    GRPC_SRV --> SCHEDINFO
+    DBUS_SRV -.->|legacy| SCHEDINFO
+
+    SCHEDINFO --> HYPER
+    SCHEDINFO --> GLOBAL
+    SCHEDINFO --> TASKCONV
+
+    CLI --> NODECONFIG
+    NODECONFIG --> NODEFILES
+
+    HYPER --> HYPERINFO
+    GLOBAL --> SCHEDUTIL
+    GLOBAL --> SCHEDMAP
+
+    TASKCONV --> SCHEDMAP
+    SCHEDMAP --> SCHEDSTATE
+
+    FAULT_CLI -->|gRPC FaultNotify| PICCOLO
+
+    GRPC_SRV -->|Deadline Miss| NODE1
+    GRPC_SRV -->|Deadline Miss| NODE2
+    GRPC_SRV -->|Deadline Miss| NODEN
+
+    NODE1 -->|libtrpc Schedule| GRPC_SRV
+    NODE2 -->|libtrpc Schedule| GRPC_SRV
+    NODEN -->|libtrpc Schedule| GRPC_SRV
+
+    NODE1 -.->|Deadline Miss| FAULT_CLI
+    NODE2 -.->|Deadline Miss| FAULT_CLI
+    NODEN -.->|Deadline Miss| FAULT_CLI
+
+    style PICCOLO fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style ADMIN fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style NODE1 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style NODE2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style NODEN fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style GRPC_SRV fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style DBUS_SRV fill:#d3d3d3,stroke:#757575,stroke-width:2px
+    style FAULT_CLI fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style SCHEDINFO fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style HYPER fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style GLOBAL fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style NODECONFIG fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style CLI fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style TASKCONV fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style SCHEDMAP fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style SCHEDUTIL fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style SCHEDSTATE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style HYPERINFO fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style NODEFILES fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+```
+
+### timpani-n System Block Diagram
+
+```mermaid
+graph TB
+    subgraph "Linux Kernel"
+        SCHED[Scheduling Events<br/>tracepoints]
+        SYSCALL[System Calls<br/>sigtimedwait]
+    end
+
+    subgraph "External Systems"
+        SAMPLE[Sample Applications<br/>Execution Tasks]
+        TIMPANIO[timpani-o<br/>Global Scheduler]
+    end
+
+    subgraph "timpani-n (time-trigger)"
+        subgraph "BPF Monitoring"
+            SCHEDSTAT[schedstat.bpf.c<br/>Scheduler Monitoring]
+            SIGWAIT[sigwait.bpf.c<br/>Signal Monitoring]
+            RINGBUF[BPF Ring Buffer]
+        end
+
+        subgraph "Core Layer"
+            MAIN[main.c<br/>Main Controller]
+            CONFIG[config.c<br/>Configuration Manager]
+            CONTEXT[Context Structure<br/>internal.h]
+        end
+
+        subgraph "Execution Layer"
+            TASK[task.c<br/>Task Manager]
+            RTSCHED[sched.c<br/>RT Scheduler]
+            TIMER[timer.c<br/>Timer Manager]
+            SIGNAL[Signal Handler<br/>sigwait]
+        end
+
+        subgraph "System Interface"
+            LSCHED[Linux Scheduler<br/>SCHED_DEADLINE]
+            AFFINITY[CPU Affinity<br/>Control]
+            POSIX[POSIX Timers]
+        end
+
+        subgraph "Communication Layer"
+            TRPC[trpc.c<br/>libtrpc Client]
+            DBUS[D-Bus Connection]
+        end
+    end
+
+    subgraph Legend2[" "]
+        L21["timpani-n (Our Scope)"]
+        L22["timpani-o (Our Scope)"]
+        L23["Communication (Our Scope)"]
+        L24["External Systems"]
+    end
+
+    TIMPANIO --> TRPC
+    TRPC --> DBUS
+    SAMPLE --> TASK
+
+    MAIN --> CONFIG
+    MAIN --> CONTEXT
+    MAIN --> TASK
+
+    TASK --> RTSCHED
+    TASK --> TIMER
+    TASK --> SIGNAL
+
+    RTSCHED --> LSCHED
+    RTSCHED --> AFFINITY
+    TIMER --> POSIX
+
+    SIGNAL --> SYSCALL
+
+    SCHEDSTAT --> RINGBUF
+    SIGWAIT --> RINGBUF
+    RINGBUF --> MAIN
+
+    SCHED -.-> SCHEDSTAT
+    SYSCALL -.-> SIGWAIT
+
+    style TIMPANIO fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style SAMPLE fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style SCHED fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style SYSCALL fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style MAIN fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style CONFIG fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style CONTEXT fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style TASK fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style RTSCHED fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style TIMER fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style SIGNAL fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style SCHEDSTAT fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style SIGWAIT fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style RINGBUF fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style LSCHED fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style AFFINITY fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style POSIX fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style TRPC fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style DBUS fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style L21 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style L22 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style L23 fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style L24 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+```
+
+---
+
 
 ## Current Repository Layout
 
