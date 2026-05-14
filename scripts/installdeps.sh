@@ -53,6 +53,11 @@ if ! command -v cargo2junit &>/dev/null; then
   cargo install cargo2junit
 fi
 
+if ! command -v cargo-about &>/dev/null; then
+  echo "📄 Installing cargo-about..."
+  cargo install cargo-about --features=cli
+fi
+
 echo "📌 Installed Rust toolchain versions:"
 cargo --version
 cargo clippy --version

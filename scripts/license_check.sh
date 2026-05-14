@@ -18,10 +18,10 @@ MANIFESTS=(
     "timpani_rust/Cargo.toml"
 )
 
-# Ensure cargo-about is installed
+# Ensure cargo-about is installed (requires --features=cli for the binary)
 if ! command -v cargo-about &>/dev/null; then
   echo "❗ cargo-about not found, installing..." | tee -a "$LOG_FILE"
-  cargo install cargo-about
+  cargo install cargo-about --features=cli
 fi
 
 for manifest in "${MANIFESTS[@]}"; do
