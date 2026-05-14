@@ -27,7 +27,7 @@ This project provides sample applications for real-time system analysis. It offe
 ## Build Instructions
 
 ```bash
-git clone https://github.com/MCO-PICCOLO/TIMPANI.git
+git clone https://github.com/eclipse-timpani/timpani.git
 cd sample-apps
 mkdir build
 cd build

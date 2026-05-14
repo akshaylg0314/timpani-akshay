@@ -37,7 +37,7 @@ Refer to [TIMPANI-N's README.md](https://github.com/MCO-PICCOLO/TIMPANI/blob/mai
 ## How to build
 
 ```
-git clone --recurse-submodules https://github.com/MCO-PICCOLO/TIMPANI.git
+git clone --recurse-submodules https://github.com/eclipse-timpani/timpani.git
 cd timpani-o
 mkdir build
 cd build
@@ -77,11 +77,11 @@ cpack -G TGZ
 
 ## How to run
 
-- To run Timpani-O with default options:
+- To run timpani-o with default options:
   ```
   timpani-o
   ```
-- To run Timpani-O with specific options, refer to the help message:
+- To run timpani-o with specific options, refer to the help message:
   ```
   timpani-o -h
   ```

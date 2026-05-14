@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 -->
 
-# Timpani-N
+# timpani-n
 
 ## Getting started
 
@@ -42,7 +42,7 @@ sudo apt install -y libyaml-dev
 ## Build
 
 ```
-git clone https://github.com/MCO-PICCOLO/TIMPANI.git
+git clone https://github.com/eclipse-timpani/timpani.git
 cd TIMPANI
 git submodule add https://github.com/libbpf/libbpf.git libbpf
 git submodule update --init --recursive

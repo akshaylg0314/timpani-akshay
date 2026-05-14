@@ -3,7 +3,7 @@
 #* SPDX-License-Identifier: MIT
 #-->
 
-# TIMPANI
+# timpani
 
 ## Release Management
 
@@ -36,8 +36,8 @@ Milestone 1:                Milestone 2:                Milestone 3:            
 
 ───────────────────────────────────────────────────────────────────────────────
 Key Features to Port (across milestones):
-- Timpani-O: Global scheduling (Rust, gRPC)
-- Timpani-N: Local execution, microsecond precision (POSIX timers)
+- timpani-o: Global scheduling (Rust, gRPC)
+- timpani-n: Local execution, microsecond precision (POSIX timers)
 - Linux RT policies: SCHED_DEADLINE, SCHED_FIFO, SCHED_RR
 - Hyperperiod synchronization
 - Deadline miss detection
@@ -50,9 +50,9 @@ Key Features to Port (across milestones):
 
 ## Overview
 
-This release plan covers the migration and feature development for all major TIMPANI components:
-- **Timpani-O** (Orchestrator)
-- **Timpani-N** (Time Trigger Node)
+This release plan covers the migration and feature development for all major timpani components:
+- **timpani-o** (Orchestrator)
+- **timpani-n** (Time Trigger Node)
 - **Sample Apps** (Real-time Workload Demos)
 - **libbpf** (eBPF Integration)
 
