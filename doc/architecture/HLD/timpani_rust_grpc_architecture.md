@@ -227,7 +227,8 @@ graph TB
     subgraph Legend[" "]
         L1["timpani-o (Our Scope)"]
         L2["timpani-n (Our Scope)"]
-        L3["External Systems"]
+        L3["gRPC Communication (Our Scope)"]
+        L4["External Systems"]
     end
 
     SchedInfoClient -->|"gRPC :50051<br/>AddSchedInfo"| SchedInfoSvc
@@ -258,7 +259,8 @@ graph TB
     style BPFN fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
     style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
     style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
-    style L3 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
 
     linkStyle 8,9,10,11,12 stroke:#f57c00,stroke-width:3px,color:#f57c00
 ```
