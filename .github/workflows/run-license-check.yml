@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: Copyright 2026 LG Electronics Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+name: License Check
+
+# Reusable workflow — called from other workflows or triggered manually
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  license-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository with submodules
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+
+      # Install Rust toolchain (stable)
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      # Make all scripts executable
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+
+      # Install project dependencies (cargo-about, etc.)
+      - name: Install project dependencies
+        run: ./scripts/installdeps.sh
+
+      # Create output directory for license artifacts
+      - name: Create output folders
+        run: mkdir -p dist/licenses
+
+      # Run cargo-about license report generation
+      - name: Run license check
+        run: ./scripts/license_check.sh
+
+      # Upload generated license HTML reports as artifacts
+      - name: Upload license report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: license-report
+          path: dist/licenses/
