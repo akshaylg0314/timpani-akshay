@@ -165,6 +165,8 @@ graph TB
     style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
     style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+
+    linkStyle 0,1,2,3 stroke:#f57c00,stroke-width:3px,color:#f57c00
 ```
 
 **Improvements:**
@@ -257,6 +259,8 @@ graph TB
     style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
     style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
     style L3 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+
+    linkStyle 8,9,10,11,12 stroke:#f57c00,stroke-width:3px,color:#f57c00
 ```
 
 ### Layer Diagram
@@ -315,6 +319,8 @@ graph TD
     style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
     style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+
+    linkStyle 0,1,2,3,4 stroke:#f57c00,stroke-width:3px,color:#f57c00
 ```
 
 ---
