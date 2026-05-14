@@ -11,23 +11,23 @@ touch "$LOG_FILE"
 
 echo "🔍 Starting license checks..." | tee -a "$LOG_FILE"
 
+# Workspace root for timpani-rust
+RUST_WORKSPACE="$PROJECT_ROOT/timpani_rust"
+
 MANIFESTS=(
-    "src/Cargo.toml"
-    "src/agent/nodeagent/Cargo.toml"
-    "src/server/rocksdbservice/Cargo.toml"
-    "src/tools/Cargo.toml"
+    "timpani_rust/Cargo.toml"
 )
 
-# Ensure cargo-about is installed
+# Ensure cargo-about is installed (requires --features=cli for the binary)
 if ! command -v cargo-about &>/dev/null; then
   echo "❗ cargo-about not found, installing..." | tee -a "$LOG_FILE"
-  cargo install cargo-about
+  cargo install cargo-about --features=cli
 fi
 
 for manifest in "${MANIFESTS[@]}"; do
   if [[ -f "$manifest" ]]; then
     crate_dir="$(dirname "$manifest")"
-    label="$(basename "$crate_dir")"
+    label="workspace"
 
     CONFIG="$PROJECT_ROOT/$crate_dir/about.toml"
     TEMPLATE="$PROJECT_ROOT/$crate_dir/about.hbs"

@@ -4,9 +4,6 @@ on:
   workflow_call:
   workflow_dispatch: 
 
-permissions:
-  packages: write
-
 env:
   ContainerRegistry: ghcr.io
   IMAGE_NAME: ${{ github.repository }}-rust
