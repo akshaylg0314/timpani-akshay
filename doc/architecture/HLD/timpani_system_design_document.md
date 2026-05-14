@@ -17,7 +17,7 @@
 
 | Version | Date | Comment | Author | Approver |
 |---------|------|---------|--------|----------|
-| 0.0b | 2026-05-13 | Added diagram legends highlighting timpani-o and timpani-n scope | LGSI-KarumuriHari | - |
+| 0.0b | 2026-05-13 | Added diagram legends highlighting timpani-o and timpani-n scope_ | LGSI-KarumuriHari | - |
 | 0.0a | 2026-05-13 | Initial system architecture documentation | Eclipse timpani Team | - |
 
 ---

@@ -106,12 +106,6 @@ graph TB
         NodeN["Node N<br/>timpani-n"]
     end
 
-    subgraph Legend[" "]
-        L1["timpani-o (Our Scope)"]
-        L2["timpani-n (Our Scope)"]
-        L3["External Systems"]
-    end
-
     Pullpiri <-->|"D-Bus<br/>com.lge.timpani"| TimpaniO
     TimpaniO <-->|"D-Bus libtrpc<br/>(custom serialization)"| Node1
     TimpaniO <-->|"D-Bus libtrpc<br/>(custom serialization)"| Node2
@@ -122,9 +116,6 @@ graph TB
     style Node1 fill:#e1ffe1,stroke:#388e3c,stroke-width:3px
     style Node2 fill:#e1ffe1,stroke:#388e3c,stroke-width:3px
     style NodeN fill:#e1ffe1,stroke:#388e3c,stroke-width:3px
-    style L1 fill:#ffe1e1,stroke:#d32f2f,stroke-width:3px
-    style L2 fill:#e1ffe1,stroke:#388e3c,stroke-width:3px
-    style L3 fill:#f5f5f5,stroke:#757575,stroke-width:2px
 ```
 
 **Issues:**
@@ -156,7 +147,8 @@ graph TB
     subgraph Legend[" "]
         L1["timpani-o (Our Scope)"]
         L2["timpani-n (Our Scope)"]
-        L3["External Systems"]
+        L3["gRPC Communication (Our Scope)"]
+        L4["External Systems"]
     end
 
     Pullpiri <-->|"gRPC<br/>SchedInfoService<br/>FaultService"| TimpaniO
@@ -171,7 +163,8 @@ graph TB
     style NodeN fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
     style L1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
     style L2 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
-    style L3 fill:#f5f5f5,stroke:#757575,stroke-width:2px
+    style L3 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style L4 fill:#f5f5f5,stroke:#757575,stroke-width:2px
 ```
 
 **Improvements:**
@@ -295,7 +288,7 @@ graph TD
     subgraph Legend[" "]
         L1["timpani-o (Our Scope)"]
         L2["timpani-n (Our Scope)"]
-        L3["Infrastructure Layer"]
+        L3["gRPC Communication (Our Scope)"]
         L4["External Systems"]
     end
 

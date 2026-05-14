@@ -132,14 +132,14 @@ Development standards, coding rules, and workflow guidelines.
 
 ```mermaid
 graph TD
-    subgraph "1. High-Level Architecture"
-        HLD1[System Design Document<br/>HLD/timpani_system_design_document.md]
-        HLD2[gRPC Integration Architecture<br/>HLD/timpani_rust_grpc_architecture.md]
-    end
-
-    subgraph "2. Feature & Requirements"
+    subgraph "1. Features & Requirements"
         F1[Feature Specification<br/>features/timpani_features.md]
         F2[Requirements Specification<br/>features/requirements/timpani_requirements.md]
+    end
+
+    subgraph "2. High-Level Architecture"
+        HLD1[System Design Document<br/>HLD/timpani_system_design_document.md]
+        HLD2[gRPC Integration Architecture<br/>HLD/timpani_rust_grpc_architecture.md]
     end
 
     subgraph "3. Component LLD"
@@ -161,11 +161,13 @@ graph TD
         Q3[Release Guide]
     end
 
-    HLD1 --> F1
-    HLD2 --> F1
     F1 --> F2
-    F2 --> LLD1
-    F2 --> LLD2
+    F2 --> HLD1
+    F2 --> HLD2
+    HLD1 --> LLD1
+    HLD2 --> LLD1
+    HLD1 --> LLD2
+    HLD2 --> LLD2
 
     LLD1 --> LLD3
     LLD2 --> LLD3
@@ -179,8 +181,8 @@ graph TD
     Q1 --> Q2
     Q2 --> Q3
 
-    style HLD1 fill:#e3f2fd
     style F1 fill:#fff9c4
+    style HLD1 fill:#e3f2fd
     style LLD3 fill:#e8f5e8
     style I1 fill:#fff3e0
     style Q3 fill:#f3e5f5
