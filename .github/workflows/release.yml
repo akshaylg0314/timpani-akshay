@@ -61,7 +61,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage-report
-          path: dist/coverage/workspace/
+          path: dist/coverage/
 
       # Deny-check report (license allowlist violations)
       - name: Download deny report
@@ -104,6 +104,7 @@ jobs:
       - name: Upload test coverage report to release
         uses: svenstaro/upload-release-action@v2
         id: upload_test_coverage_report
+        continue-on-error: true
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: dist/coverage/workspace/*.html
@@ -137,6 +138,7 @@ jobs:
       - name: Upload test report to release
         uses: svenstaro/upload-release-action@v2
         id: upload_test_report
+        continue-on-error: true
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: dist/tests/test_summary.xml
